@@ -1,0 +1,23 @@
+{
+    "author": "shimonchayim",
+    "name": "net-morphic",
+    "version": "0.1.8",
+    "repository": {
+        "type": "git",
+        "url": "https://github.scm.corp.ebay.com/cpenkar/net-morphic"
+    },
+    "engines": {
+        "node":""
+    },
+    "main": "middle-tier.js",
+    "dependencies": {
+        "underscore": "",
+        "http-proxy": "",
+        "optimist": "",
+        "mustache": "",
+        "mime":""
+    },
+    "devDependencies": {
+        "nodeunit": ""
+    }
+}
