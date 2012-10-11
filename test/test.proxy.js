@@ -2,23 +2,29 @@ var fs, http, htProxy, Proxy, config, handlers, endpoint, timer;
 
 fs = require('fs');
 http = require('http');
-htProxy = require('http-proxy');
+Proxy = require('../lib/proxy');
 config = JSON.parse(fs.readFileSync('./configs/sample.config.json'));
-handler = require('../lib/handler');
 endpoint = require('./server/endpoint.server').listen(3200);
 timer = require('since-when');
 
-var proxy = htProxy(config);
+var proxy = Proxy(config);
 
 proxy.server.listen(3201);
 
-module.exports['test proxy server'] = function(test){
+module.exports['test proxy server works'] = function(test){
 	
 	http.get('http://localhost:3201/slowService').on('response', function(res){
+		test.expect(1);
 		var data = '';
 		res.on('data', function(d){
-			d
+			data += d
+		});
+		res.on('end', function(){
+			test.doesNotThrow(function(){JSON.parse(data)});
+			test.done();
+			proxy.server.close();
+			endpoint.close();
 		})
 	})
 	
-}
+};

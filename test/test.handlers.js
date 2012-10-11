@@ -83,7 +83,9 @@ module.exports['test flakey service handler'] = function(test){
 		});
 		res.on('end', function(){
 			test.doesNotThrow(function(){JSON.parse(data)});
-			test.done()
+			test.done();
+			Proxy.close();
+			endpoint.close();
 		})
 	});
 };
