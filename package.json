@@ -1,0 +1,35 @@
+{
+  "author": "shimonchayim",
+  "name": "net-morphic",
+  "version": "0.1.9",
+  "repository": {
+    "type": "git",
+    "url": "https://github.scm.corp.ebay.com/cpenkar/net-morphic"
+  },
+  "engines": {
+    "node": ""
+  },
+  "main": "net-morphic.js",
+  "dependencies": {
+    "underscore": "1.4.0",
+    "http-proxy": "0.8.3",
+    "optimist": "0.3.4",
+    "mime": "1.2.7",
+    "filed": "0.0.7",
+    "connect": "2.5.0",
+    "cluster2": "0.3.5",
+    "nodeunit":"0.7.4",
+	"since-when":""
+  },
+  "devDependencies": {
+    "nodeunit": ""
+  },
+  "description": "ERROR: No README.md file found!",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT"
+}
