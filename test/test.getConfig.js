@@ -1,4 +1,4 @@
-var getConfig = require('../lib/getConfig.js')
+var getConfig = require('../lib/getconfig.js')
   , http = require('http')
   , fs = require('fs')
   , config = JSON.parse(fs.readFileSync('configs/sample.config.json'))
