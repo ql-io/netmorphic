@@ -18,7 +18,8 @@
     "filed": "0.0.7",
     "connect": "2.5.0",
     "cluster2": "0.3.5",
-    "nodeunit":"0.7.4"
+    "nodeunit":"0.7.4",
+	"since-when":""
   },
   "devDependencies": {
     "nodeunit": ""

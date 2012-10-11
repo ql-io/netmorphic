@@ -12,13 +12,13 @@
         "latency":2000,
         "type":"slow"
     },
-    "/flackyService":{
+    "/flakeyService":{
         "host":"127.0.0.1",
         "port":3200,
         "url":"/test.json",
         "lo":1000,
         "hi":4000,
-        "type":"flacky"
+        "type":"flakey"
     },
     "/unresponsiveService":{
         "host":"127.0.0.1",
@@ -26,7 +26,7 @@
         "url":"/test.json",
         "type":"unresponsive"
     },
-    "/dropyService":{
+    "/dropService":{
         "host":"127.0.0.1",
         "port":3200,
         "url":"/test.json",

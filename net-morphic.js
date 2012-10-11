@@ -1,67 +1,54 @@
-"use strict";
+var Proxy = require('./lib/proxy');
+var Cluster = require('cluster2');
+var fs = require('fs');
 
-var httpProxy = require('http-proxy'),
-    urlUtil = require('url'),
-    argv = require('optimist')
-        .options('c', {
-            'default':null
-        })
-        .argv,
-    handler = require('./lib/handler.js'),
-		Cluster = require('cluster2');
+module.exports = function(port, config){
+	
+	if('number' !== typeof port) {
+		throw new Error ('You must give a port number');
+		return
+	};
+
+	var config = config;
+
+	if('string' == typeof config){
+		try{
+			config = JSON.parse(config)
+		}
+		catch(err){
+			throw new Error('\nConfig must be an object or a JSON string')
+		}
+	};
+
+	if(!config) {
 		
-require('./test/endpoint.server')
+		console.log('\nNo config provided. Using ./configs/sample.config.json');
+	
+		config = JSON.parse(fs.readFileSync('./configs/sample.config.json', 'utf8'));
+	
+	};
+	
+	var proxyServer = Proxy(config);
+		
+	var c = new Cluster({
+	    port: port
+	});
 
-var config = argv.c ? require('./configs/' + argv.c) : require('./configs/sample.config.json');
+	
+    var r = {};
 
-var scriptInfo = {};
-
-var getconfig = require('./getconfig.js');
-var setconfig = require('./setconfig.js');
-var run_script = require('./run_script.js');
-var stop_script = require('./stop_script.js');
-var _default = require('./_default.js');
-
-var server = httpProxy.createServer(
-
-    function (req, res, proxy) {
-
-        var serConfig = config[req.url];
-
-        if (serConfig) {
-
-            handler[serConfig.type](req, res, proxy, serConfig);
-
-            return;
-
-        }
-
-        else {
-
-				    var pathname = urlUtil.parse(req.url).pathname;
-
-				    if (pathname == '/getconfig') getconfig(req, res, config) ;
-
-				    else if (pathname == '/setconfig') setconfig(req, res, config) ;
-
-				    else if (pathname == '/run') run_script(req, res, config, scriptInfo) ;
-
-				    else if (pathname == '/stop') stop_script(scriptInfo) ;
-
-				    else _default(req, res);
-
-				    return;
-
-				}
-
-    }
-
-);
-
-var c = new Cluster({
-    port: 3100
-});
-
-c.listen(function(cb) {
-    cb(server);
-});
+	r.start = function(){
+		c.listen(function(cb) {
+		    cb(proxyServer.proxy);
+		});	
+	};
+	
+	r.quit = c.stop;
+	
+	r.shutdown = c.shutdown;
+	
+	r.config = proxyServer.config;
+		
+	return r
+	
+};
