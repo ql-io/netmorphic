@@ -9,10 +9,14 @@ endpoint = require('./server/endpoint.server').listen(3200);
 timer = require('since-when');
 
 Proxy = htProxy.createServer(function(req, res, proxy){
+	
+	req.proxy = proxy;
 
 	var serConfig = config[req.url];
 
     if (serConfig) {
+	
+	    req.serConfig = serConfig;
 
         handler[serConfig.type](req, res, proxy, serConfig);
 
@@ -51,9 +55,11 @@ module.exports['test slow service handler'] = function(test){
 	
 	http.get('http://localhost:3201/slowService').on('response', function(res){
 		var data = ''
-		  , t = time.sinceBegin()[0] * 1000;
+		  , t = time.sinceBegin()
+		  , delay = (t[0] + (t[1] / 1e9)) * 1000;
 		
-		test.ok(t >= expectedDelay)
+		
+		test.ok(delay >= expectedDelay)
 		
 		res.on('data', function(d){
 			data += d
@@ -89,7 +95,6 @@ module.exports['test flakey service handler'] = function(test){
 		})
 	});
 };
-
 
 
 

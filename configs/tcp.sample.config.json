@@ -1,0 +1,35 @@
+{
+	"ebay cologne api": {
+		"host" : "127.0.0.1",
+		"port" : 8124,
+		"proxy host" : "127.0.0.1",
+		"proxy port" : 10001,
+		"type" : "normal"
+	},
+	"ebay purses api": {
+		"host" : "127.0.0.1",
+		"port" : 8124,
+		"proxy host" : "127.0.0.1",
+		"proxy port" : 10001,
+		"type" : "slow",
+		"latency" : 1000
+	},
+	"ebay gold api": {
+		"host" : "127.0.0.1",
+		"port" : 8124,
+		"proxy host" : "127.0.0.1",
+		"proxy port" : 10001,
+		"type" : "flakey",
+		"lo" : 1000,
+		"high" : 5000
+	},
+	"ebay pins api": {
+		"host" : "127.0.0.1",
+		"port" : 8124,
+		"proxy host" : "127.0.0.1",
+		"proxy port" : 10001,
+		"type" : "drop",
+		"lo" : 100,
+		"high" : 1000
+	}
+}

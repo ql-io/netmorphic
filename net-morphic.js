@@ -2,7 +2,7 @@ var Proxy = require('./lib/proxy');
 var Cluster = require('cluster2');
 var fs = require('fs');
 
-module.exports = function(port, config){
+module.exports = function(port, config, handlers){
 	
 	if('number' !== typeof port) {
 		throw new Error ('You must give a port number');
@@ -28,7 +28,7 @@ module.exports = function(port, config){
 	
 	};
 	
-	var proxyServer = Proxy(config);
+	var proxyServer = Proxy(config, handlers);
 		
 	var c = new Cluster({
 	    port: port
@@ -43,9 +43,15 @@ module.exports = function(port, config){
 		});	
 	};
 	
-	r.quit = c.stop;
+	// it may not be useful or even possible to change the mock server's handler...
+	r.mock = proxyServer.mock;
 	
-	r.shutdown = c.shutdown;
+	r.quit = function(){
+		c.stop();
+	};
+	r.shutdown = function(){
+		c.shutdown();
+	};
 	
 	r.config = proxyServer.config;
 		

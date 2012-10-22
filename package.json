@@ -19,7 +19,8 @@
     "connect": "2.5.0",
     "cluster2": "0.3.5",
     "nodeunit":"0.7.4",
-	"since-when":""
+	"since-when":"0.4.7",
+	"router":"0.6.2"
   },
   "devDependencies": {
     "nodeunit": ""

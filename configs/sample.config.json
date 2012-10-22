@@ -3,14 +3,16 @@
         "host":"127.0.0.1",
         "port":3200,
         "url":"/test.json",
-        "type":"normal"
+        "type":"normal",
+		"method":"GET"
     },
     "/slowService":{
         "host":"127.0.0.1",
         "port":3200,
         "url":"/test.json",
         "latency":2000,
-        "type":"slow"
+        "type":"slow",
+		"method":"GET"
     },
     "/flakeyService":{
         "host":"127.0.0.1",
@@ -18,18 +20,31 @@
         "url":"/test.json",
         "lo":1000,
         "hi":4000,
-        "type":"flakey"
+        "type":"flakey",
+		"method":"GET"
     },
     "/unresponsiveService":{
         "host":"127.0.0.1",
         "port":3200,
         "url":"/test.json",
-        "type":"unresponsive"
+        "type":"unresponsive",
+		"method":"GET"
     },
     "/dropService":{
         "host":"127.0.0.1",
         "port":3200,
         "url":"/test.json",
-        "type":"drop"
-    }
+        "type":"drop",
+		"lo": 100,
+		"hi": 800,
+		"method":"GET"
+    },
+	"/{x}?/{y}":{
+		"host":"127.0.0.1",
+        "port":3200,
+        "url":"/test.json",
+        "type":"exampleHandler",
+        "latency":333,
+		"method":"GET"
+	}
 }
