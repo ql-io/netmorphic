@@ -1,17 +1,43 @@
-var proxy = require('./lib/tcp.proxy');
-proxy
-config = require('./configs/tcp.sample.config.json');
-var p = proxy(confi['ebay cologne api']);
+exports["this is not really a test"] = function(test){
+	test.done()
+};
+
+/*
+var net = require('net');
+var proxy = require('../lib/tcp.proxy');
+handler = require('../lib/tcp.handler.js');
+
+config = require('../configs/tcp.sample.config.json');
+
 var p = proxy(config['ebay cologne api']);
-p
+var p = proxy(config['ebay cologne api']);
+
 p.listen(10001);
-handler = require('./lib/tcp.handler.js');
-handler.slow
-config
+
 pp = proxy(config['ebay purses api'])
-pp._CONFIG
 pp.listen(10002)
+
 drop = proxy(config['ebay pins api']);
 drop.listen(10003);
+
 flake = proxy(config['ebay gold api']);
 flake.listen(10004);
+
+module.exports['Test TCP normal handler'] = function(test){
+	test.expect(1);
+	
+	var client = new net.Socket();
+	
+	client.connect(10001, function(){
+		setTimeout(function(){
+		  client.write('yodel')}
+		, 1000)
+	});
+	
+	client.on('data', function(d){
+		test.equal(d.toString(), 'yodel');
+		
+	})
+	
+}
+*/

@@ -10,6 +10,15 @@ var server = http.createServer(function(req,res){
 	
 }).listen(3300);
 
+/*
+
+WHATS HAPPENING HERE IS THAT A CATCH ALL PATTERN MATCH IS CATCHING THESE INSTEAD
+
+TO FIX THIS YOU NEED TO MERGE GETCONFIG, SETCONFIG, ETC, WITH THE CONFIG OBJECT ITSELF
+
+*/
+
+
 module.exports['get individual service config'] = function(test){
 	test.expect(2);
 

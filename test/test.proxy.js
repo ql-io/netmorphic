@@ -10,11 +10,11 @@ exHandler = require('../configs/sample.handler.js');
 
 var proxy = Proxy(config, {'exampleHandler': exHandler});
 
-proxy.server.listen(3201);
+proxy.server.listen(3202);
 
 module.exports['test proxy server works, now with custom handlers'] = function(test){
 	
-	http.get('http://localhost:3201/slowService').on('response', function(res){
+	http.get('http://localhost:3202/slowService').on('response', function(res){
 		test.expect(1);
 		var data = '';
 		res.on('data', function(d){
@@ -30,7 +30,7 @@ module.exports['test proxy server works, now with custom handlers'] = function(t
 
 module.exports['test proxy path pattern matching, for custom handler'] = function(test){
 	
-	http.get('http://localhost:3201/slow').on('response', function(res){
+	http.get('http://localhost:3202/slow').on('response', function(res){
 		test.expect(1);
 		var data = '';
 		res.on('data', function(d){
