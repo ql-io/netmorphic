@@ -13,15 +13,15 @@ proxy.stderr.on('data', function(e){
 });
 
 module.exports['test cluster works with http proxy server works'] = function(test){
+	
 	test.expect(1);
 
 	proxy.stdout.on('data', function(e){
-    //  if(e.toString() == 'killme') {proxy.kill('SIGTERM')}
 	  if(e.toString() == 'ready'){
 	  	http.get('http://localhost:3201/slowService').on('response', function(res){
 			var data = '';
 			res.on('data', function(d){
-				data += d
+				data += d;				
 			});
 			res.on('end', function(){
 				test.doesNotThrow(function(){JSON.parse(data)});

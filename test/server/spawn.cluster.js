@@ -1,4 +1,4 @@
-var Cluster = require('../../net-morphic').http;
+var Cluster = require('../../http.cluster');
 var config = require('../../configs/sample.config.json');
 var timer = require('since-when');
 var exHandler = require('../../configs/sample.handler.js');
