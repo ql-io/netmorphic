@@ -17,10 +17,11 @@
     "mime": "1.2.7",
     "filed": "0.0.7",
     "connect": "2.5.0",
-    "cluster2": "0.3.5",
+    "cluster2": "0.3.6",
     "nodeunit":"0.7.4",
 	"since-when":"0.4.7",
-	"router":"0.6.2"
+	"router":"0.6.2",
+	"pause-stream":""
   },
   "devDependencies": {
     "nodeunit": ""
