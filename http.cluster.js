@@ -4,10 +4,8 @@ var fs = require('fs');
 var _ = require('underscore');
 var Model = require('scuttlebutt/model');
 var Net = require('net');
-var spawn = require('child_process').spawn;
 var model = new Model();
-
-// var gossip = spawn('node', ['./lib/scuttlebutt']);
+var monitor = require('./monitor')();
 
 module.exports = function(port, config, handlers){
 		
@@ -32,15 +30,14 @@ module.exports = function(port, config, handlers){
 	if(!config) {
 		
 		console.log('\nNo config provided. Using ./configs/sample.config.json');
-	
-		config = require('./configs/sample.config.json', 'utf8');
-	
+		
 	};
 	
 	var proxyServer = Proxy(config, handlers, true);
 		
 	var c = new Cluster({
-	    port: port
+	    port: port,
+		monitor: monitor
 	});
 
 	
