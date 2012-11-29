@@ -391,6 +391,93 @@ process.binding = function (name) {
 
 });
 
+require.define("/configs/sample.config.json",function(require,module,exports,__dirname,__filename,process,global){module.exports = {
+	"global" : {
+		"routes" : {
+			"/{x}?/{y}":{
+				"host":"127.0.0.1",
+		        "port":3200,
+		        "url":"/test.json",
+		        "type":"apples",
+				"method":"GET",
+		        "latency":3330,
+				"array" : ["127.0.0.1", "0.0.0.0", {boogie: "woogie"}, [1000, 2000, 4000]]
+			},
+			"/default":{
+				"host":"127.0.0.1",
+		        "port":3200,
+		        "url":"/test.json",
+		        "type":"bananas",
+				"method":"POST"
+			}
+		},
+		"IP ADDRESSES" : ["127.0.0.1", "0.0.0.0", {boogie: "woogie"}, [1000, 2000, 4000]]
+	},
+	
+	"tenant 1" : {
+		"routes" : {
+			"/{z}?/{w}":{
+				"host":"127.0.0.1",
+		        "port":3200,
+		        "url":"/test.json",
+		        "type":"apples",
+				"method":"GET",
+		        "latency":3330
+			},
+			"/standard":{
+				"host":"127.0.0.1",
+		        "port":3200,
+		        "url":"/test.json",
+		        "type":"bananas",
+				"method":"POST"
+			}
+		},
+		"IP ADDRESSES" : ["127.0.0.1", "0.0.0.0	"]
+	}
+}
+;
+
+});
+
+require.define("/lib/mouse.around.js",function(require,module,exports,__dirname,__filename,process,global){module.exports = function(node, fn){
+	
+	node.addEventListener('mouseover', onHover, true)
+	node.addEventListener('mouseout', onExit, true)
+	
+	var node = node;
+	var position = [0, 0];
+	
+	function mouseMove(evt){
+		fn(evt, node, position, false, false)
+	}
+	
+	function onExit(evt){
+		window.removeEventListener('mousemove', mouseMove, true)
+		fn(evt, node, position, false, true)
+	}
+	
+	function onHover(evt){
+		window.addEventListener('mousemove', mouseMove, true)
+		position = findPos(evt.target);
+
+		fn(evt, node, position, true, false)
+
+		function findPos(obj) {
+				var curleft = curtop = 0;
+				if (obj.offsetParent) {
+					do {
+								curleft += obj.offsetLeft;
+								curtop += obj.offsetTop;
+							} 
+					while (obj = obj.offsetParent);
+					return [curleft,curtop];
+				};
+			};
+	};
+	
+}
+});
+
 require.define("/node_modules/traverse/package.json",function(require,module,exports,__dirname,__filename,process,global){module.exports = {"main":"index.js"}
 });
 
@@ -707,92 +794,6 @@ forEach(objectKeys(Traverse.prototype), function (key) {
 
 });
 
-require.define("/configs/sample.config.json",function(require,module,exports,__dirname,__filename,process,global){module.exports = {
-	"global" : {
-		"routes" : {
-			"/{x}?/{y}":{
-				"host":"127.0.0.1",
-		        "port":3200,
-		        "url":"/test.json",
-		        "type":"apples",
-				"method":"GET",
-		        "latency":3330
-			},
-			"/default":{
-				"host":"127.0.0.1",
-		        "port":3200,
-		        "url":"/test.json",
-		        "type":"bananas",
-				"method":"POST"
-			}
-		},
-		"machines" : ["127.0.0.1", "0.0.0.0", {boogie: "woogie"}, [1, 2, 4], "function(){}"]
-	},
-	
-	"Sales" : {
-		"routes" : {
-			"/{z}?/{w}":{
-				"host":"127.0.0.1",
-		        "port":3200,
-		        "url":"/test.json",
-		        "type":"apples",
-				"method":"GET",
-		        "latency":3330
-			},
-			"/standard":{
-				"host":"127.0.0.1",
-		        "port":3200,
-		        "url":"/test.json",
-		        "type":"bananas",
-				"method":"POST"
-			}
-		},
-		"machines" : ["127.0.0.1", "0.0.0.0	"]
-	}
-}
-;
-
-});
-
-require.define("/lib/mouse.around.js",function(require,module,exports,__dirname,__filename,process,global){module.exports = function(node, fn){
-	
-	node.addEventListener('mouseover', onHover, true)
-	node.addEventListener('mouseout', onExit, true)
-	
-	var node = node;
-	var position = [0, 0];
-	
-	function mouseMove(evt){
-		fn(evt, node, position, false, false)
-	}
-	
-	function onExit(evt){
-		window.removeEventListener('mousemove', mouseMove, true)
-		fn(evt, node, position, false, true)
-	}
-	
-	function onHover(evt){
-		window.addEventListener('mousemove', mouseMove, true)
-		position = findPos(evt.target);
-
-		fn(evt, node, position, true, false)
-
-		function findPos(obj) {
-				var curleft = curtop = 0;
-				if (obj.offsetParent) {
-					do {
-								curleft += obj.offsetLeft;
-								curtop += obj.offsetTop;
-							} 
-					while (obj = obj.offsetParent);
-					return [curleft,curtop];
-				};
-			};
-	};
-	
-}
-});
-
 require.define("/lib/bundle.js",function(require,module,exports,__dirname,__filename,process,global){var json = require('../configs/sample.config.json');
 var mouseAround = require('../lib/mouse.around');
 var traverse = require('traverse');
@@ -818,8 +819,8 @@ function init(obj, el){
 				node._node = x;
 				node.addEventListener('click', tenantOnClick, true)
 				mouseAround(node, function(evt, el, pos, start, end){
-	//				hoverbot.style.left = 50 + evt.clientX + "px";
-	//				hoverbot.style.top = evt.clientY - 25 + 'px';
+					hoverbot.style.left = 50 + evt.clientX + "px";
+					hoverbot.style.top = evt.clientY - 25 + 'px';
 					if(end) hoverbot.style.left = '-1000px'; 
 				});
 				el.appendChild(node);
@@ -838,8 +839,8 @@ function init(obj, el){
 			node._node = x;
 			node.addEventListener('click', tenantOnClick, true)
 			mouseAround(node, function(evt, el, pos, start, end){
-//				hoverbot.style.left = 50 + evt.clientX + "px";
-//				hoverbot.style.top = evt.clientY - 25 + 'px';
+				hoverbot.style.left = 25 + evt.clientX + "px";
+				hoverbot.style.top = evt.clientY - 10 + 'px';
 				if(end) hoverbot.style.left = '-1000px'; 
 			});
 			el.appendChild(node);
@@ -848,7 +849,7 @@ function init(obj, el){
 	});
 	var menu = document.createElement('div');
 	menu.classList.add('menu');
-	el.appendChild(menu)
+//	el.appendChild(menu)
 };
 
 init(json, tenants);

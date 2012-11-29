@@ -92,11 +92,13 @@ div {
 }
 
 #hoverbot{
-	width:200px;
-	height:100px;
+	width:30px;
+	height:30px;
+	border-radius:15px;
 	background:gold;
 	position:fixed;
-	right:0;
+	right:-1000px;
+	z-index:3;
 	display:none;
 }
 

@@ -7,7 +7,8 @@
 		        "url":"/test.json",
 		        "type":"apples",
 				"method":"GET",
-		        "latency":3330
+		        "latency":3330,
+				"array" : ["127.0.0.1", "0.0.0.0", {boogie: "woogie"}, [1000, 2000, 4000]]
 			},
 			"/default":{
 				"host":"127.0.0.1",
@@ -17,10 +18,10 @@
 				"method":"POST"
 			}
 		},
-		"machines" : ["127.0.0.1", "0.0.0.0", {boogie: "woogie"}, [1, 2, 4], "function(){}"]
+		"IP ADDRESSES" : ["127.0.0.1", "0.0.0.0", {boogie: "woogie"}, [1000, 2000, 4000]]
 	},
 	
-	"Sales" : {
+	"tenant 1" : {
 		"routes" : {
 			"/{z}?/{w}":{
 				"host":"127.0.0.1",
@@ -38,6 +39,6 @@
 				"method":"POST"
 			}
 		},
-		"machines" : ["127.0.0.1", "0.0.0.0	"]
+		"IP ADDRESSES" : ["127.0.0.1", "0.0.0.0	"]
 	}
 }
