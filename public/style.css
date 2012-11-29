@@ -1,5 +1,5 @@
 body {
-	background: #fff;
+	background: #333;
 	font-size:18px;
 	text-align:center;
 }
@@ -14,7 +14,7 @@ div {
 	left:-30px;
 	width:150%;
 	height:88px;
-	background:#000;	
+	background:#333;	
 	font-family:courier;
 }
 
@@ -62,10 +62,15 @@ div {
 }
 
 .container {
-	width:100%;
+	width:99%;
 	float:right;
-	top:150px;
+	top:100px;
 	position:absolute;
+}
+
+.cursor {
+	cursor: pointer;
+	border:1px solid black;
 }
 
 #tenants {
