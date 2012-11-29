@@ -1,50 +1,43 @@
 {
-    "/normalService":{
-        "host":"127.0.0.1",
-        "port":3200,
-        "url":"/test.json",
-        "type":"normal",
-		"method":"GET"
-    },
-    "/slowService":{
-        "host":"127.0.0.1",
-        "port":3200,
-        "url":"/test.json",
-        "latency":2000,
-        "type":"slow",
-		"method":"GET"
-    },
-    "/flakeyService":{
-        "host":"127.0.0.1",
-        "port":3200,
-        "url":"/test.json",
-        "lo":1000,
-        "hi":4000,
-        "type":"flakey",
-		"method":"GET"
-    },
-    "/unresponsiveService":{
-        "host":"127.0.0.1",
-        "port":3200,
-        "url":"/test.json",
-        "type":"unresponsive",
-		"method":"GET"
-    },
-    "/dropService":{
-        "host":"127.0.0.1",
-        "port":3200,
-        "url":"/test.json",
-        "type":"drop",
-		"lo": 100,
-		"hi": 800,
-		"method":"GET"
-    },
-	"/{x}?/{y}":{
-		"host":"127.0.0.1",
-        "port":3200,
-        "url":"/test.json",
-        "type":"exampleHandler",
-        "latency":333,
-		"method":"GET"
+	"global" : {
+		"routes" : {
+			"/{x}?/{y}":{
+				"host":"127.0.0.1",
+		        "port":3200,
+		        "url":"/test.json",
+		        "type":"apples",
+				"method":"GET",
+		        "latency":3330
+			},
+			"/default":{
+				"host":"127.0.0.1",
+		        "port":3200,
+		        "url":"/test.json",
+		        "type":"bananas",
+				"method":"POST"
+			}
+		},
+		"machines" : ["127.0.0.1", "0.0.0.0", {boogie: "woogie"}, [1, 2, 4], "function(){}"]
+	},
+	
+	"Sales" : {
+		"routes" : {
+			"/{z}?/{w}":{
+				"host":"127.0.0.1",
+		        "port":3200,
+		        "url":"/test.json",
+		        "type":"apples",
+				"method":"GET",
+		        "latency":3330
+			},
+			"/standard":{
+				"host":"127.0.0.1",
+		        "port":3200,
+		        "url":"/test.json",
+		        "type":"bananas",
+				"method":"POST"
+			}
+		},
+		"machines" : ["127.0.0.1", "0.0.0.0	"]
 	}
 }

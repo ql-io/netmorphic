@@ -1,0 +1,130 @@
+body {
+	background: #fff;
+	font-size:18px;
+	text-align:center;
+}
+
+div {
+	background: #eee;
+}
+
+.header {
+	position:absolute;
+	top:0px;
+	left:-30px;
+	width:150%;
+	height:88px;
+	background:#000;	
+	font-family:courier;
+}
+
+.netmorphic {
+	position:absolute;
+	left:23.5%;
+	top:-10px;
+	font-size:300%;
+	color:#fff;
+	text-align:center;
+	margin: 0 auto;
+	z-index:2;
+	color:yellow;
+}
+
+.m30 {
+	margin:0;
+	border: 11px double red;
+	position:absolute;
+	top:0px;
+	left:-30px;
+	width:150%;
+	height:25px;
+	background:transparent;	
+}
+
+.m20 {
+	border: 15px double green;
+	position:absolute;
+	top:5px;
+	left:-30px;
+	width:150%;
+	height:25px;
+	background:transparent;	
+}
+
+.m10 {
+	border: 18px double blue;
+	position:absolute;
+	top:-10px;
+	left:-30px;
+	width:150%;
+	height:20px;
+	background:transparent;	
+}
+
+.container {
+	width:100%;
+	float:right;
+	top:150px;
+	position:absolute;
+}
+
+#tenants {
+	width: 200px;
+	min-height: 400px;
+	height: 80%;
+	background:pink;
+	float:left;
+	margin-right:20px;
+}
+
+#tenants a {
+	display:block;
+}
+
+.menu {
+	height: 100px;
+	background:yellow;
+}
+
+#hoverbot{
+	width:200px;
+	height:100px;
+	background:gold;
+	position:fixed;
+	right:0;
+	display:none;
+}
+
+.object, .array {
+	width: 200px;
+	min-height: 400px;
+	height: 80%;
+	background:pink;
+	float:left;
+	margin-right:20px;	
+}
+.object a {
+	display:block;
+}
+
+.array a {
+	display:block;
+}
+.text {
+	width: 200px;
+	height: 50px;
+}
+
+#json {
+	display:none;
+}
+
+
+div > *:not(.key) {
+	margin:20px;
+}
+
+
+.key:focus > * {
+	display:block;
+}
