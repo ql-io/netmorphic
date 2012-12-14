@@ -23,7 +23,7 @@
 	"router":"0.6.2",
 	"pause-stream":"", 
 	"express":"2.5.11",
-	"traverse", ""
+	"traverse": ""
   },
   "devDependencies": {
     "nodeunit": ""

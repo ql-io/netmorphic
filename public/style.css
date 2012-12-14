@@ -2,6 +2,7 @@ body {
 	background: #333;
 	font-size:18px;
 	text-align:center;
+	height:100%;
 }
 
 div {
@@ -21,13 +22,29 @@ div {
 .netmorphic {
 	position:absolute;
 	left:23.5%;
-	top:-10px;
+	top:-5x;
 	font-size:300%;
 	color:#fff;
 	text-align:center;
 	margin: 0 auto;
 	z-index:2;
 	color:yellow;
+}
+.controls {
+	position:absolute;
+	left:30.5%;
+	top: 66px;
+	width:100px;
+	font-size:100%;
+	color:#fff;
+	text-align:center;
+	margin: 0 auto;
+	z-index:2;
+	color:black;
+}
+
+.button {
+	display:inline-block;
 }
 
 .m30 {
@@ -71,6 +88,7 @@ div {
 .cursor {
 	cursor: pointer;
 	border:1px solid black;
+	margin:5px 5px 20px;
 }
 
 #tenants {
@@ -90,7 +108,12 @@ div {
 	height: 100px;
 	background:yellow;
 }
-
+.meta {
+	opacity:.5;
+	font-size: 66%;
+	display:inline-inline;
+	margin:5px;
+}
 #hoverbot{
 	width:30px;
 	height:30px;
@@ -102,13 +125,14 @@ div {
 	display:none;
 }
 
-.object, .array {
+.object, .array, .string, .number {
 	width: 200px;
 	min-height: 400px;
-	height: 80%;
+	max-height: 500px;
 	background:pink;
 	float:left;
 	margin-right:20px;	
+	overflow: scroll;
 }
 .object a {
 	display:block;
@@ -127,9 +151,6 @@ div {
 }
 
 
-div > *:not(.key) {
-	margin:20px;
-}
 
 
 .key:focus > * {

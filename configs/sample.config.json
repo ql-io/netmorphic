@@ -1,44 +1,13 @@
 {
 	"global" : {
-		"routes" : {
-			"/{x}?/{y}":{
-				"host":"127.0.0.1",
-		        "port":3200,
-		        "url":"/test.json",
-		        "type":"apples",
-				"method":"GET",
-		        "latency":3330,
-				"array" : ["127.0.0.1", "0.0.0.0", {boogie: "woogie"}, [1000, 2000, 4000]]
-			},
-			"/default":{
-				"host":"127.0.0.1",
-		        "port":3200,
-		        "url":"/test.json",
-		        "type":"bananas",
-				"method":"POST"
-			}
+		"/path":{
+			"host":"127.0.0.1",
+	        "port":8000,
+	        "url":"",
+	        "type":"slow",
+			"method":"get",
+			"latency": 100
 		},
-		"IP ADDRESSES" : ["127.0.0.1", "0.0.0.0", {boogie: "woogie"}, [1000, 2000, 4000]]
-	},
-	
-	"tenant 1" : {
-		"routes" : {
-			"/{z}?/{w}":{
-				"host":"127.0.0.1",
-		        "port":3200,
-		        "url":"/test.json",
-		        "type":"apples",
-				"method":"GET",
-		        "latency":3330
-			},
-			"/standard":{
-				"host":"127.0.0.1",
-		        "port":3200,
-		        "url":"/test.json",
-		        "type":"bananas",
-				"method":"POST"
-			}
-		},
-		"IP ADDRESSES" : ["127.0.0.1", "0.0.0.0	"]
+		"addresses" : []
 	}
 }
