@@ -10,6 +10,6 @@ var connect = Connect()
 	filed('test/server/test.json').pipe(res)
  });
 
-var server = http.createServer(connect)
+var server = http.createServer(connect).listen(3200)
 
 module.exports = server;

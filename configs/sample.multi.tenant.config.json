@@ -1,0 +1,22 @@
+{
+	"127.0.0.1" : {
+		"/{x}?/{y}":{
+			"host":"127.0.0.1",
+	        "port":3200,
+	        "url":"/test.json",
+	        "type":"slow",
+	        "latency":3330,
+			"method":"GET"
+		}
+	},
+	
+	"*" : {
+		"/{x}?/{y}":{
+			"host":"127.0.0.1",
+	        "port":3200,
+	        "url":"/test.json",
+	        "type":"normal",
+			"method":"GET"
+		}
+	}
+}

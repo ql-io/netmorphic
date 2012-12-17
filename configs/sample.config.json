@@ -1,35 +1,13 @@
 {
-    "/normalService":{
-        "host":"127.0.0.1",
-        "port":3200,
-        "url":"/test.json",
-        "type":"normal"
-    },
-    "/slowService":{
-        "host":"127.0.0.1",
-        "port":3200,
-        "url":"/test.json",
-        "latency":2000,
-        "type":"slow"
-    },
-    "/flakeyService":{
-        "host":"127.0.0.1",
-        "port":3200,
-        "url":"/test.json",
-        "lo":1000,
-        "hi":4000,
-        "type":"flakey"
-    },
-    "/unresponsiveService":{
-        "host":"127.0.0.1",
-        "port":3200,
-        "url":"/test.json",
-        "type":"unresponsive"
-    },
-    "/dropService":{
-        "host":"127.0.0.1",
-        "port":3200,
-        "url":"/test.json",
-        "type":"drop"
-    }
+	"global" : {
+		"/path":{
+			"host":"127.0.0.1",
+	        "port":8000,
+	        "url":"",
+	        "type":"slow",
+			"method":"get",
+			"latency": 100
+		},
+		"addresses" : []
+	}
 }
