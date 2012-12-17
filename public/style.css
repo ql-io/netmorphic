@@ -1,0 +1,158 @@
+body {
+	background: #333;
+	font-size:18px;
+	text-align:center;
+	height:100%;
+}
+
+div {
+	background: #eee;
+}
+
+.header {
+	position:absolute;
+	top:0px;
+	left:-30px;
+	width:150%;
+	height:88px;
+	background:#333;	
+	font-family:courier;
+}
+
+.netmorphic {
+	position:absolute;
+	left:23.5%;
+	top:-5x;
+	font-size:300%;
+	color:#fff;
+	text-align:center;
+	margin: 0 auto;
+	z-index:2;
+	color:yellow;
+}
+.controls {
+	position:absolute;
+	left:30.5%;
+	top: 66px;
+	width:100px;
+	font-size:100%;
+	color:#fff;
+	text-align:center;
+	margin: 0 auto;
+	z-index:2;
+	color:black;
+}
+
+.button {
+	display:inline-block;
+}
+
+.m30 {
+	margin:0;
+	border: 11px double red;
+	position:absolute;
+	top:0px;
+	left:-30px;
+	width:150%;
+	height:25px;
+	background:transparent;	
+}
+
+.m20 {
+	border: 15px double green;
+	position:absolute;
+	top:5px;
+	left:-30px;
+	width:150%;
+	height:25px;
+	background:transparent;	
+}
+
+.m10 {
+	border: 18px double blue;
+	position:absolute;
+	top:-10px;
+	left:-30px;
+	width:150%;
+	height:20px;
+	background:transparent;	
+}
+
+.container {
+	width:99%;
+	float:right;
+	top:100px;
+	position:absolute;
+}
+
+.cursor {
+	cursor: pointer;
+	border:1px solid black;
+	margin:5px 5px 20px;
+}
+
+#tenants {
+	width: 200px;
+	min-height: 400px;
+	height: 80%;
+	background:pink;
+	float:left;
+	margin-right:20px;
+}
+
+#tenants a {
+	display:block;
+}
+
+.menu {
+	height: 100px;
+	background:yellow;
+}
+.meta {
+	opacity:.5;
+	font-size: 66%;
+	display:inline-inline;
+	margin:5px;
+}
+#hoverbot{
+	width:30px;
+	height:30px;
+	border-radius:15px;
+	background:gold;
+	position:fixed;
+	right:-1000px;
+	z-index:3;
+	display:none;
+}
+
+.object, .array, .string, .number {
+	width: 200px;
+	min-height: 400px;
+	max-height: 500px;
+	background:pink;
+	float:left;
+	margin-right:20px;	
+	overflow: scroll;
+}
+.object a {
+	display:block;
+}
+
+.array a {
+	display:block;
+}
+.text {
+	width: 200px;
+	height: 50px;
+}
+
+#json {
+	display:none;
+}
+
+
+
+
+.key:focus > * {
+	display:block;
+}
