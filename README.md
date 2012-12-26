@@ -18,11 +18,11 @@ Netmorphic is a library for testing networked applications, such as REST clients
 
 ### clone the repo
 
-'''bash
+```bash
 git clone https://github.com/ql-io/netmorphic.git
 cd netmorphic 
 make clean install
-'''
+```
 
 ### use NPM
 
