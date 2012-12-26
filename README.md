@@ -147,7 +147,7 @@ cluster.listen(function(cb){
 ### TCP
 
 ```js
-var TCProxy = require('../../netmorphic-1').tcp
+var TCProxy = require('netmorphic').tcp
   , config = require('files/TCP.config.json')
   , CUSTOM_HANDLERS = false
   , USE_CLUSTER = false;
@@ -164,7 +164,7 @@ servers.forEach(function(server){
 ### TCP with [Cluster2](http://github.com/ql-io/cluster2)
 
 ```js
-var TCProxy = require('../../netmorphic-1').tcp
+var TCProxy = require('netmorphic').tcp
   , monitor = require('netmorphic').monitor
   , config = require('files/TCP.config.json')
   , Cluster = require('cluster2')
@@ -197,10 +197,11 @@ Handlers are are the "morph" in netmorphic. They act upon your requests and stre
 Additionally, custom handlers can be written to do anything. Pass an object of handler functions to the netmorphic constructor, like so:
 
 ```js
-var TCProxy = require('../../netmorphic-1').tcp
+var TCProxy = require('netmorphic').tcp
   , config = require('files/TCP.config.json')
   , CUSTOM_HANDLERS = require('files/my.custom.handlers.js')
   , USE_CLUSTER = true;
+
 var servers = TCProxy(config, CUSTOM_HANDLERS, USE_CLUSTER)
 ```
 
