@@ -221,7 +221,29 @@ module.exports['just proxy'] = function(req, res){
 }
 ```
 
+For TCP, it looks like this:
 
+```js
+
+var ps = require('pause-stream'); // a stream that pauses
+
+module.exports['vanilla tcp proxy'] = function(socket, service){
+	
+	// socket is the client stream
+	// service is a TCP socket to use to proxy to the endpoint
+
+	var buffer = ps(); // create a pause stream
+	
+	socket.pipe(buffer.pause()); // pipe the request to the buffer and pause it
+	
+	service.connect(socket._CONFIG.port, socket._CONFIG.host, function(){
+		buffer.pipe(service); // pipe the buffered request to the endpoint
+		buffer.resume() // resume the buffer stream
+	});
+	
+	service.pipe(socket); // pipe the endpoint connection back to the client connection
+}
+```
 
 
 
