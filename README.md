@@ -82,20 +82,20 @@ TCP configuration is similar to the above, with two major exceptions. The first 
 		"port" : 3124, // and this port
 		"type" : "normal" // using this TCP handler
 	},
-	"10002": {
+	"10002": { // use this port for a slow proxy
 		"host" : "127.0.0.1",
 		"port" : 3124,
 		"type" : "slow",
 		"latency" : 5000
 	},
-	"10003": {
+	"10003": { // use this port for a drop proxy
 		"host" : "127.0.0.1",
 		"port" : 3124,
 		"type" : "drop",
 		"lo" : 1000,
 		"high" : 5000
 	},
-	"10004": {
+	"10004": { // use this port for a bumpy proxy
 		"host" : "127.0.0.1",
 		"port" : 3124,
 		"type" : "bumpy",
