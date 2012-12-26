@@ -65,7 +65,7 @@ RESTful routing made available through the use of the [Router](https://npmjs.org
 			"hi" : 2000,
 			"lo" : 500,
 		},
-		"addresses" : ["127.0.0.0"] // leave this empty if you don't need to bother with multi-tenancy
+		"addresses" : [] // leave this empty if you don't need to bother with multi-tenancy
 	}
 }
 
