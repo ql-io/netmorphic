@@ -205,11 +205,19 @@ var TCProxy = require('netmorphic').tcp
 var servers = TCProxy(config, CUSTOM_HANDLERS, USE_CLUSTER)
 ```
 
-a custom handler file would look like this:
+a custom HTTP handler file would look like this:
 
 ```js
-module.exports['custom handler'] = function(req, res){
-	req.end('sorry')
+
+// hint: it's just a function that handles the request and response streams...
+
+module.exports['just proxy'] = function(req, res){
+	var config = req.serConfig; // the service config for this particular client
+	var proxy = req.proxy; // a proxy to use, if you need a proxy
+    proxy.proxyRequest(req, res, {
+        host:config.host,
+        port:config.port
+    });
 }
 ```
 
