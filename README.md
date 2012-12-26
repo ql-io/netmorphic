@@ -11,6 +11,7 @@ Netmorphic is a library for testing networked applications, such as REST clients
 * [HTTP Configuration](#http-configuration)
 * [TCP Configuration](#tcp-configuration)
 * [Quick Start](#quick-start)
+* [Handlers](#handlers)
 
 ***
 
@@ -42,7 +43,7 @@ var netmorphic = require('netmorphic')
 
 Configure your proxy with a json file. See the examples below.
 
-### http Configuration
+### HTTP Configuration
 
 RESTful routing made available through the use of the [Router](https://npmjs.org/package/router) module. Netmorphic support multi-tenant configurations, so you may differentiate behavior between clients accessing the same endpoints. However, for most cases, a single tenant configuration will suffice. The most basic configuration will have a single top-level key called "global", and any number of paths. You may specify which IP addresses to accept, or leave it the array empty to accept any client IP.
 
@@ -70,7 +71,7 @@ RESTful routing made available through the use of the [Router](https://npmjs.org
 
 ``` 
 
-### tcp configuration
+### TCP configuration
 
 TCP configuration is similar to the above, with two major exceptions. The first is that multi-tenancy is not currently supported, so there is no 'global' key at the top level. The second is that urls are replaced with the the port number that the proxy server will listen on.
 
@@ -180,4 +181,38 @@ cluster.listen(function(cb){
 	cb(servers)
 })
 ```
+
+***
+
+## handlers
+
+Handlers are are the "morph" in netmorphic. They act upon your requests and streams. Parameters for your handlers are set in the config files. Netmorphic ships with a few handlers out of the box, namely:
+
+* normal - plain proxy
+* slow - buffers the outgoing request by a minimum latency
+* flakey - buffers the request for a random latency between hi and lo values 
+* drop - drops request immediately or 
+* unresponsive - does not respond to the request
+
+Additionally, custom handlers can be written to do anything. Pass an object of handler functions to the netmorphic constructor, like so:
+
+```js
+var TCProxy = require('../../netmorphic-1').tcp
+  , config = require('files/TCP.config.json')
+  , CUSTOM_HANDLERS = require('files/my.custom.handlers.js')
+  , USE_CLUSTER = true;
+var servers = TCProxy(config, CUSTOM_HANDLERS, USE_CLUSTER)
+```
+
+a custom handler file would look like this:
+
+```js
+module.exports['custom handler'] = function(req, res){
+	req.end('sorry')
+}
+```
+
+
+
+
 
