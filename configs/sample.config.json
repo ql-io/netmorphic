@@ -8,6 +8,14 @@
 			"method":"get",
 			"latency": 100
 		},
+		"/another?/{path}":{
+			"host":"127.0.0.1",
+	        "port":8000,
+	        "url":"",
+	        "type":"slow",
+			"method":"get",
+			"latency": 100
+		},
 		"addresses" : []
 	}
 }
