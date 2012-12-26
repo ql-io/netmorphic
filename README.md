@@ -127,7 +127,7 @@ proxy.server.listen(8000)
 ```js
 var netmorphic = require('netmorphic').http
   , monitor = require('netmorphic').monitor
-  , Cluster = requir('cluster2)
+  , Cluster = requir('cluster2')
   , config = require('files/myconfig.json')
   , USE_CLUSTER = true
   , CUSTOM_HANDLERS = false;
