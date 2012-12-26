@@ -1,9 +1,9 @@
 # Netmorphic
 
-Netmorphic is a library for testing networked applications, such as REST clients over HTTP, and database clients over TCP. It has many features. The behavior of the proxy is completely customizable.
+Netmorphic is a library for testing networked applications, such as REST clients over HTTP, and database clients over TCP.
 
 ### Features
-* WHAT FEATUERS?
+* WHAT FEATURES!
 * THESE FEATURES!
 
 ### table of contents
@@ -121,7 +121,7 @@ var proxy = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER);
 proxy.server.listen(8000)
 ```
 
-### HTTP with CLuster2
+### HTTP with [Cluster2](http://github.com/ql-io/cluster2)
 
 ```js
 var netmorphic = require('netmorphic').http
@@ -160,7 +160,7 @@ servers.forEach(function(server){
 })
 ```
 
-### TCP with CLuster
+### TCP with [Cluster2](http://github.com/ql-io/cluster2)
 
 ```js
 var TCProxy = require('../../netmorphic-1').tcp
