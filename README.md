@@ -47,7 +47,6 @@ Configure your proxy with a json file. See the examples below.
 RESTful routing made available through the use of the [Router](https://npmjs.org/package/router) module. Netmorphic support multi-tenant configurations, so you may differentiate behavior between clients accessing the same endpoints. However, for most cases, a single tenant configuration will suffice. The most basic configuration will have a single top-level key called "global", and any number of paths. You may specify which IP addresses to accept, or leave it the array empty to accept any client IP.
 
 ```js
-var josn = 
 {
 	"global" : {
 		"/path/to/endpoint":{ // this is static url for the endpoint
@@ -68,6 +67,7 @@ var josn =
 		"addresses" : ["127.0.0.0"] // leave this empty if you don't need to bother with multi-tenancy
 	}
 }
+
 ``` 
 
 ### tcp configuration
@@ -75,7 +75,7 @@ var josn =
 TCP configuration is similar to the above, with two major exceptions. The first is that multi-tenancy is not currently supported, so there is no 'global' key at the top level. The second is that urls are replaced with the the port number that the proxy server will listen on.
 
 ```js
-var config = {
+{
 	"10001": { // the port the proxy will listen on
 		"host" : "127.0.0.1", // and proxy incoming streams to this host
 		"port" : 3124, // and this port
