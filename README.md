@@ -45,7 +45,7 @@ Configure your proxy with a json file. See the examples below.
 
 ### HTTP Configuration
 
-RESTful routing made available through the use of the [Router](https://npmjs.org/package/router) module. Netmorphic support multi-tenant configurations, so you may differentiate behavior between clients accessing the same endpoints. However, for most cases, a single tenant configuration will suffice. The most basic configuration will have a single top-level key called "global", and any number of paths. You may specify which IP addresses to accept, or leave it the array empty to accept any client IP.
+RESTful routing is made available through the use of the [Router](https://npmjs.org/package/router) module. Netmorphic supports multi-tenant configurations, so you may differentiate behavior between clients accessing the same endpoints. However, for most cases, a single tenant configuration will suffice. The most basic configuration will have a single top-level key called "global", and any number of paths. You may specify which IP addresses to accept, or leave the array empty to accept any client IP.
 
 ```js
 {
