@@ -22,7 +22,7 @@ TO FIX THIS YOU NEED TO MERGE GETCONFIG, SETCONFIG, ETC, WITH THE CONFIG OBJECT 
 module.exports['get individual service config'] = function(test){
 	test.expect(2);
 
-	http.get('http://localhost:3300/getConfig?srcUrl=/normalService').on('response', function(res){
+	http.get('http://localhost:3300/getConfig?tenant=global&srcUrl=/normalService').on('response', function(res){
 		test.equal(res.statusCode, 200);
 	});
 
