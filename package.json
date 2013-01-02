@@ -25,7 +25,8 @@
 	"express":"2.5.11",
 	"traverse": "",
 	"node-uuid": "",
-	"scuttlebutt":""
+	"scuttlebutt":"",
+	"ecstatic":""
   },
   "devDependencies": {
     "nodeunit": ""
