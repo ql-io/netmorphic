@@ -19,13 +19,19 @@ module.exports.monitor = monitor
 */
 
 var proxy = require('./lib/_proxy')
-
+  , _ = require('underscore')
+;
 var Handlers = {};
 
 Handlers.tcp = require('./lib/tcp.handler')
 Handlers.http = require('./lib/handler')
 
-module.exports.revision = function(config, handlers, cluster){
+
+module.exports.revision = function(config, handlers, cluster, httpPort){
+
+	if(config && !_.contains(Object.keys(config), 'global')) {
+		config = {'global' : config};
+	};
 
 	if(handlers){
 		(function(){
@@ -35,7 +41,6 @@ module.exports.revision = function(config, handlers, cluster){
 		}())
 	};
 	
-	return proxy(config, Handlers, false)
-		
+	return proxy(config, Handlers, cluster, httpPort)	
 	
 }
