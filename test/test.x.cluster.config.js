@@ -69,9 +69,9 @@ module.exports['see inline comments for explanation of this test'] = function(te
 					var d  = JSON.parse(data);
 					test.ok(d['latency'] == x);
 					test.done();
-//					monitor.close()
-//					server1.close()
-//					server2.close()
+					monitor.close()
+					server1.close()
+					server2.close()
 				})
 			});
 			
