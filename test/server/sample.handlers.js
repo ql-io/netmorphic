@@ -45,7 +45,6 @@ exports['test'] = function(req, res){
 	var config = req.serConfig;
 	var proxy = req.proxy;
 	req.url = getUrl(req.url, config.url);
-    console.log(req.url)
     proxy.proxyRequest(req, res, {
         host: 'google.com',
 		port: 80

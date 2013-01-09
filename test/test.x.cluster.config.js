@@ -12,7 +12,7 @@
 */
 
 var http = require('http')
-  , proxy = require('../').revision
+  , proxy = require('../').proxy
   , Monitor = require('../').monitor
   , config = require('./server/ambos.json')
   , config2 = require('./server/ambos2.json')

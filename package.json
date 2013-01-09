@@ -27,7 +27,9 @@
 	"node-uuid": "",
 	"scuttlebutt":"",
 	"ecstatic":"",
-	"through":""
+	"through":"",
+	"event-stream":"",
+	"from":""
   },
   "devDependencies": {
     "nodeunit": ""

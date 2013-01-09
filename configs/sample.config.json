@@ -1,21 +1,16 @@
 {
-	"global" : {
-		"/path":{
-			"host":"127.0.0.1",
-	        "port":8000,
-	        "url":"",
-	        "type":"slow",
-			"method":"get",
-			"latency": 100
-		},
-		"/another?/{path}":{
-			"host":"127.0.0.1",
-	        "port":8000,
-	        "url":"",
-	        "type":"slow",
-			"method":"get",
-			"latency": 100
-		},
-		"addresses" : []
-	}
+	"*":{
+		"host": "statehub-staging-phx.stratus.qa.ebay.com",
+		"port": 12000,
+		"type":"test",
+		"method":"GET",
+		"latency" : 2000
+	},
+	"12000":{
+		"host" : null,
+		"port" : null,
+		"type" : "tcp-internet",
+		"latency" : 3000
+	},
+	"addresses" : []
 }
