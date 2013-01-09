@@ -36,10 +36,6 @@ module.exports['see inline comments for explanation of this test'] = function(te
     var server1 = servers1[1].app
       , server2 = servers2[1].app;
 
-	server1.on('nm-proxy-start', function(d){
-		console.log(d)
-	})
-
 	server1.listen(3201)
 	server2.listen(3202)	
 
