@@ -1,7 +1,7 @@
 {
   "author": "shimonchayim",
   "name": "netmorphic",
-  "version": "0.1.16",
+  "version": "0.1.2",
   "repository": {
     "type": "git",
     "url": "https://github.scm.corp.ebay.com/cpenkar/net-morphic"
@@ -26,7 +26,10 @@
 	"traverse": "",
 	"node-uuid": "",
 	"scuttlebutt":"",
-	"ecstatic":""
+	"ecstatic":"",
+	"through":"",
+	"event-stream":"",
+	"from":""
   },
   "devDependencies": {
     "nodeunit": ""
