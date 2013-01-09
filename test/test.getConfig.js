@@ -17,7 +17,6 @@ module.exports['get individual service config'] = function(test){
 	test.expect(1);
 
 	http.get('http://localhost:3300/getConfig?tenant=global&srcUrl=*').on('response', function(res){
-		console.log(res.statusCode)
 		test.equal(res.statusCode, 200);
 		test.done();		
 	});
@@ -28,11 +27,6 @@ module.exports['get entire config'] = function(test){
 	test.expect(1);
 
 	http.get('http://localhost:3300/getConfig').on('response', function(res){
-		res.on('data', function(d){
-			console.log(d.toString('utf8'))
-		})
-		console.log(res.statusCode)
-		
 		test.equal(res.statusCode, 200);
 		server.close();
 		test.done()
