@@ -1,8 +1,8 @@
 {
 	"*":{
-		"host": "statehub-staging-phx.stratus.qa.ebay.com",
-		"port": 12000,
-		"type":"test",
+		"host": "wackawackawaka.com",
+		"port": 1000,
+		"type":"fake",
 		"method":"GET",
 		"latency" : 2000
 	},
