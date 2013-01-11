@@ -1,13 +1,15 @@
 var getConfig = require('../lib/getconfig.js')
   , http = require('http')
   , fs = require('fs')
+  , _ = require('underscore')
   , config = JSON.parse(fs.readFileSync('configs/sample.config.json'))
 ;
 
 var server = http.createServer(function(req,res){
 	
-	config = {'global' : config};
-	
+	if(config && !_.contains(Object.keys(config), 'global')) {
+		config = {'global' : config};
+	};	
 	getConfig(req, res, config)
 	
 }).listen(3300);

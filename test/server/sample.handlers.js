@@ -41,6 +41,18 @@ exports['tcp-internet'] = function(socket, service){
 var httpProxy = require('http-proxy')
   ,  urlUtil = require('url');
 
+exports['slow then normal'] = function(req, res){
+	
+	var config = req.serConfig;
+	var proxy = req.proxy;
+	req.url = getUrl(req.url, config.url);
+    proxy.proxyRequest(req, res, {
+        host: 'google.com',
+		port: 80
+    });
+}
+
+
 exports['test'] = function(req, res){
 	var config = req.serConfig;
 	var proxy = req.proxy;
