@@ -53,7 +53,7 @@ module.exports['see inline comments for explanation of this test'] = function(te
 		
 		req.end()
 				
-	})
+	});
 
 	server2.on('listening', function(){
 
@@ -63,6 +63,7 @@ module.exports['see inline comments for explanation of this test'] = function(te
 				res.on('data', function(data){
 					var d  = JSON.parse(data);
 					test.ok(d['latency'] == x);
+					console.log(d)
 					test.done();
 					monitor.close()
 					server1.close()
@@ -75,6 +76,6 @@ module.exports['see inline comments for explanation of this test'] = function(te
 
 		}, 1000)
 		
-	})
+	});
 
 };

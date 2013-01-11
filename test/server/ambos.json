@@ -1,8 +1,9 @@
 {
 	"*":{
-		"host": "statehub-staging-phx.stratus.qa.ebay.com",
-		"port": 12000,
-		"type":"test",
+		"host": "nodejs.org",
+		"port": 80,
+		"type":"normal",
+		"https": false,
 		"method":"GET",
 		"latency" : 2000
 	},
@@ -10,7 +11,8 @@
 		"host" : null,
 		"port" : null,
 		"type" : "tcp-internet",
-		"latency" : 3000
+		"latency" : 3000,
+		"https": true
 	},
 	"addresses" : []
 }
