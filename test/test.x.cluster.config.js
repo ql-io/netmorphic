@@ -29,7 +29,7 @@ module.exports['see inline comments for explanation of this test'] = function(te
 
 	var servers1 = proxy(config, sample_handlers, clustered, 3201);  
 	
-	var servers2 = proxy(config2, sample_handlers, clustered, 3202);  
+	var servers2 = proxy(config2, sample_handlers, clustered, 3206);  
 
 	var monitor = Monitor(3100).gossip;
 
@@ -37,7 +37,7 @@ module.exports['see inline comments for explanation of this test'] = function(te
       , server2 = servers2[1].app;
 
 	server1.listen(3201)
-	server2.listen(3202)	
+	server2.listen(3206)	
 
 	server1.on('listening', function(){
 		var req = http.get('http://localhost:3201/setConfig?tenant=global&srcUrl=' + path + '&latency=' + (x+=200)).on('response', function(res){
@@ -59,17 +59,17 @@ module.exports['see inline comments for explanation of this test'] = function(te
 
 		setTimeout(function(){
 
-			var req = http.get('http://localhost:3202/getConfig?tenant=global&srcUrl=' + path).on('response', function(res){
+			var req = http.get('http://localhost:3206/getConfig?tenant=global&srcUrl=' + path).on('response', function(res){
 				res.on('data', function(data){
 					var d  = JSON.parse(data);
 					test.ok(d['latency'] == x);
-					console.log(d)
+					console.log(d);
 					test.done();
 					monitor.close()
 					server1.close()
 					server2.close()
 				})
-			});
+			}, 2000);
 			
 			req.end()
 			
