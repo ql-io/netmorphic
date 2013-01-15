@@ -75,7 +75,6 @@ module.exports['test slow service handler'] = function(test){
 		  , t = time.sinceBegin()
 		  , delay = (t[0] + (t[1] / 1e9)) * 1000;
 		
-		
 		test.ok(delay >= expectedDelay)
 		
 		res.on('data', function(d){

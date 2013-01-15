@@ -9,7 +9,7 @@ var js = {
 	"undefined" : "undefined"
 }
 
-var server = http.createServer(connect).listen(3200)
+var server = http.createServer(connect)
 
 function connect(req, res){
 	

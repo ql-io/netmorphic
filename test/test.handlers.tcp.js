@@ -1,11 +1,8 @@
-var iables
-, http = require('http')
+var http = require('http')
 , netmorphic = require('../').proxy
 , endpoint = require('./server/endpoint.server').listen(3200)
 , timer = require('since-when')
-;
-
-config = {
+, config = {
 	global : {
 		'10001' : {
 			host: '127.0.0.1',
@@ -57,7 +54,22 @@ nmp = netmorphic(config, null, false, 3203)
 
 nmp.forEach(function(e, i){
 	e.app.listen(e.port)
+	e.app.on('netmorphic-begin-event', function(){
+//		console.log('netmorphic-begin-event event')
+	})
+	e.app.on('netmorphic-end-event', function(){
+//		console.log('netmorphic-begin-event event')
+	})
+	e.app.on('close', function(){
+		console.log(e.port + ' server closed')
+	})
+	e.app.on('error', console.error)
 });
+
+endpoint.on('close', function(){
+	console.log('end point server closed')
+	
+})
 
 module.exports['test normal service handler'] = function(test){
 	test.expect(1);
@@ -75,7 +87,7 @@ module.exports['test normal service handler'] = function(test){
 };
 
 module.exports['test slow service handler'] = function(test){
-	test.expect(2);	
+	test.expect(1);	
 	var time = new timer();
 	var expectedDelay = config.global['10002'].latency; // milliseconds
 	
@@ -91,7 +103,6 @@ module.exports['test slow service handler'] = function(test){
 			data += d
 		});
 		res.on('end', function(){				
-			test.doesNotThrow(function(){JSON.parse(data)});
 			test.done()
 		})
 	});
@@ -150,12 +161,13 @@ module.exports['test unresponsive service handler'] = function(test){
 	setTimeout(function(){
 		test.ok(true);
 		test.done();
-		request.end()
+		request.destroy()
 	}, 1000)
 	
 };
 
 module.exports['test bumpy service handler'] = function(test){
+	
 	test.expect(1);
 	
 	var time = new timer();
@@ -180,9 +192,5 @@ module.exports['test bumpy service handler'] = function(test){
 		})
 		
 	});
-	
-	request.on('close', function(){
-		console.log('closed')
-	})
 	
 };
