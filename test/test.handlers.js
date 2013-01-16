@@ -111,7 +111,6 @@ module.exports['test flakey service handler'] = function(test){
 	});
 };
 
-
 module.exports['test unresponsive service handler'] = function(test){
 	test.expect(1);
 	
@@ -121,13 +120,16 @@ module.exports['test unresponsive service handler'] = function(test){
 		test.ok(false) // this shouldn't happen
 	});
 	
+	request.on('error', function(){
+	});
+	
 	setTimeout(function(){
 		test.ok(true);
-		test.done()
+		test.done();
+		request.destroy()
 	}, 1000)
 	
 };
-
 module.exports['test drop service handler'] = function(test){
 	test.expect(1);
 	
@@ -142,4 +144,3 @@ module.exports['test drop service handler'] = function(test){
 		})
 	});
 };
-

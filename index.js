@@ -34,7 +34,5 @@ module.exports.proxy = function(config, handlers, cluster, httpPort){
 	};
 		
 	return proxy(config, Handlers, cluster, httpPort)
-	
-	return netmorphic
-	
+		
 }

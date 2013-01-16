@@ -32,7 +32,8 @@
 	"from":""
   },
   "devDependencies": {
-    "nodeunit": ""
+    "nodeunit": "",
+	"clone":""
   },
   "description": "ERROR: No README.md file found!",
   "directories": {

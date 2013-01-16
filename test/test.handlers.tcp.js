@@ -54,21 +54,13 @@ nmp = netmorphic(config, null, false, 3203)
 
 nmp.forEach(function(e, i){
 	e.app.listen(e.port)
-	e.app.on('netmorphic-begin-event', function(){
-//		console.log('netmorphic-begin-event event')
-	})
-	e.app.on('netmorphic-end-event', function(){
-//		console.log('netmorphic-begin-event event')
-	})
 	e.app.on('close', function(){
-		console.log(e.port + ' server closed')
 	})
 	e.app.on('error', console.error)
 });
 
 endpoint.on('close', function(){
-	console.log('end point server closed')
-	
+	console.log('end point server closed')	
 })
 
 module.exports['test normal service handler'] = function(test){
@@ -81,7 +73,7 @@ module.exports['test normal service handler'] = function(test){
 		});
 		res.on('end', function(){
 			test.doesNotThrow(function(){JSON.parse(data)});
-			test.done()
+			test.done();
 		})
 	});
 };
@@ -103,7 +95,8 @@ module.exports['test slow service handler'] = function(test){
 			data += d
 		});
 		res.on('end', function(){				
-			test.done()
+			test.done();
+			
 		})
 	});
 };
@@ -119,14 +112,13 @@ module.exports['test flakey service handler'] = function(test){
 		var data = '';
 		var t = time.sinceBegin();
 		var delay = (t[0] + (t[1] / 1e9)) * 1000
-
 		test.ok(delay >= config.global['10003'].lo && delay <= config.global['10003'].hi)
 
 		res.on('data', function(d){
 			data += d
 		});
 		res.on('end', function(d){
-			test.done();
+			test.done();			
 		})
 	});
 };
@@ -139,13 +131,13 @@ module.exports['test drop service handler'] = function(test){
 	var request = http.get('http://localhost:10004/drop').on('response', function(res){
 		res.on('end', function(){
 			test.ok(true)
-			test.done();
+			test.done();			
 		})
 	});
 };
 
-
 module.exports['test unresponsive service handler'] = function(test){
+	
 	test.expect(1);
 	
 	var time = new timer();
@@ -161,10 +153,11 @@ module.exports['test unresponsive service handler'] = function(test){
 	setTimeout(function(){
 		test.ok(true);
 		test.done();
-		request.destroy()
+		request.destroy();
 	}, 1000)
 	
 };
+
 
 module.exports['test bumpy service handler'] = function(test){
 	
@@ -180,17 +173,24 @@ module.exports['test bumpy service handler'] = function(test){
 		
 		res.on('end', function(){
 			
-			test.ok(delay >= config.global['10006'].lo && delay <= config.global['10006'].hi)
+			test.ok(delay >= config.global['10006'].lo && delay <= config.global['10006'].hi);
+			
 			test.done();
 			
-			nmp.forEach(function(e, i){
-				e.app.close()
-			});
-
-			endpoint.close();
+			request.destroy();
+					
+			fin();
 			
 		})
 		
 	});
 	
 };
+
+function fin(){
+	nmp.forEach(function(e, i){
+		e.app.close()
+	});
+
+	endpoint.close();
+}
