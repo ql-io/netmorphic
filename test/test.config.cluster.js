@@ -48,7 +48,6 @@ module.exports['see inline comments for explanation of this test'] = function(te
 		});
 		
 		req.on('error', function(err){
-			console.log('poop\n' + err)
 		})
 		
 		req.end()
@@ -63,7 +62,6 @@ module.exports['see inline comments for explanation of this test'] = function(te
 				res.on('data', function(data){
 					var d  = JSON.parse(data);
 					test.ok(d['latency'] == x);
-					console.log(d);
 					test.done();
 					monitor.close()
 					server1.close()

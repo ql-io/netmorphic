@@ -1,7 +1,7 @@
 {
   "author": "shimonchayim",
   "name": "netmorphic",
-  "version": "0.1.22",
+  "version": "0.2.2",
   "repository": {
     "type": "git",
     "url": "https://github.scm.corp.ebay.com/cpenkar/net-morphic"
@@ -32,7 +32,8 @@
 	"from":""
   },
   "devDependencies": {
-    "nodeunit": ""
+    "nodeunit": "",
+	"clone":""
   },
   "description": "ERROR: No README.md file found!",
   "directories": {
