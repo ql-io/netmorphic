@@ -1,15 +1,24 @@
-var Connect = require('connect')
-  , http = require('http')
-  , filed = require('filed')
+var http = require('http')
 ;
 
-var connect = Connect()
-  .use(Connect.logger('dev'))
-  .use(Connect.static('public'))
-  .use(function(req, res){
-	filed('test/server/test.json').pipe(res)
- });
+var js = {
+	"true" : "true",
+	"!true": "false",
+	"name" : "netmorphic",
+	"null" : "null",
+	"undefined" : "undefined"
+}
 
-var server = http.createServer(connect).listen(3200)
+var server = http.createServer(connect)
+
+function connect(req, res){
+	
+	res.writeHead(200, {
+		'Content-Type' : 'text/json'
+	});
+	
+	res.write(JSON.stringify(js))
+	res.end()
+}
 
 module.exports = server;
