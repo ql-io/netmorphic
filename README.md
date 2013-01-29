@@ -2,9 +2,7 @@
 
 Netmorphic is a library for testing networked applications, such as REST clients over HTTP, and database clients over TCP.
 
-### Features
-* WHAT FEATURES!
-* THESE FEATURES!
+The easiest way to get started is to use the netmorphic template application.
 
 ### table of contents
 * [Installation](#installation)
@@ -35,8 +33,6 @@ npm install netmorphic
 var netmorphic = require('netmorphic')
 ```
 
-
-
 ***
 
 ## Configurations
@@ -45,28 +41,26 @@ Configure your proxy with a json file. See the examples below.
 
 ### HTTP Configuration
 
-RESTful routing is made available through the use of the [Router](https://npmjs.org/package/router) module. Netmorphic supports multi-tenant configurations, so you may differentiate behavior between clients accessing the same endpoints. However, for most cases, a single tenant configuration will suffice. The most basic configuration will have a single top-level key called "global", and any number of paths. You may specify which IP addresses to accept, or leave the array empty to accept any client IP.
+RESTful routing is made available through the use of the [Router](https://npmjs.org/package/router) module. 
 
 ```js
 {
-	"global" : {
-		"/path/to/endpoint":{ // this is static url for the endpoint
-			"host":"endpoint.host.example.com", // the host of the endpoint server
-	        "port":80, // the port of the endpoint
-	        "type":"slow", // the handler type to use. See section on handlers below
-			"method":"get", // request method
-			"latency": 100 // latency parameter to use with "slow" handler type
-		},
-		"/product/{id}":{ // this is a dynamic url. The value of id will be found at req.params.id
-			"host":"endpoint.host.example.com",
-	        "port":80,
-	        "type":"flakey", // another type of handler
-			"method":"get",
-			"hi" : 2000,
-			"lo" : 500,
-		},
-		"addresses" : [] // leave this empty if you don't need to bother with multi-tenancy
-	}
+	"/path/to/endpoint":{ // this is static url for the endpoint
+		"host":"endpoint.host.example.com", // the host of the endpoint server
+        "port":80, // the port of the endpoint
+        "type":"slow", // the handler type to use. See section on handlers below
+		"method":"get", // request method
+		"latency": 100 // latency parameter to use with "slow" handler type
+	},
+	"/product/{id}":{ // this is a dynamic url. The value of id will be found at req.params.id
+		"host":"endpoint.host.example.com",
+        "port":80,
+        "type":"flakey", // another type of handler
+		"method":"get",
+		"hi" : 2000,
+		"lo" : 500,
+	},
+	"addresses" : [] // leave this empty if you don't need to bother with multi-tenancy
 }
 
 ``` 
