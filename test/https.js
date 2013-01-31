@@ -46,7 +46,12 @@ config = {
 	}
 }
 
-nmp = netmorphic(config, handle, false, 3203, 4430)
+var certs = {
+	key: 'test/certs/green.key',
+	cert: 'test/certs/green.crt'
+}
+
+nmp = netmorphic(config, handle, false, 3203, 4430, certs)
 
 nmp[1].app.listen(4430);
 
