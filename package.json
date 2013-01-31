@@ -1,7 +1,7 @@
 {
   "author": "shimonchayim",
   "name": "netmorphic",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "repository": {
     "type": "git",
     "url": "https://github.scm.corp.ebay.com/cpenkar/net-morphic"
@@ -29,7 +29,8 @@
 	"ecstatic":"",
 	"through":"",
 	"event-stream":"",
-	"from":""
+	"from":"",
+	"ssl-keygen":""
   },
   "devDependencies": {
     "nodeunit": "",
@@ -40,7 +41,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"certify" : "echo ./bin/certify"
   },
   "license": "MIT"
 }
