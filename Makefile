@@ -7,7 +7,6 @@ install:
 	mkdir logs;\
 	npm install;\
 	npm link;\
-	npm certify;\
 
 .PHONY : test
 
