@@ -16,6 +16,7 @@ var server = http.createServer(function(req,res){
 
 
 module.exports['get individual service config'] = function(test){
+
 	test.expect(1);
 
 	http.get('http://localhost:3300/getConfig?tenant=global&srcUrl=*').on('response', function(res){
@@ -26,6 +27,7 @@ module.exports['get individual service config'] = function(test){
 };
 
 module.exports['get entire config'] = function(test){
+
 	test.expect(1);
 
 	http.get('http://localhost:3300/getConfig').on('response', function(res){
@@ -33,4 +35,5 @@ module.exports['get entire config'] = function(test){
 		server.close();
 		test.done()
 	});
+
 };
