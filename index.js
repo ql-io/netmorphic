@@ -11,7 +11,7 @@ Handlers.http = require('./lib/handler')
 
 module.exports.monitor = monitor;
 
-module.exports.proxy = function(config, handlers, cluster, httpPort, httpsPort){	
+module.exports.proxy = function(config, handlers, cluster, httpPort, httpsPort, certs){	
 	
 	try{
 		fs.readdirSycn('./netmorphic-configs')
@@ -29,6 +29,7 @@ module.exports.proxy = function(config, handlers, cluster, httpPort, httpsPort){
 		cluster = opts.cluster || false
 		httpPort = opts.httpPort || undefined
 		httpsPort = opts.httspPort || undefined
+		certs = opts.certs || undefined
 	}
 	
 	if(config && !_.contains(Object.keys(config), 'global')) {
@@ -43,6 +44,6 @@ module.exports.proxy = function(config, handlers, cluster, httpPort, httpsPort){
 		}())
 	};
 		
-	return proxy(config, Handlers, cluster, httpPort, httpsPort)		
+	return proxy(config, Handlers, cluster, httpPort, httpsPort, certs)		
 
 }
