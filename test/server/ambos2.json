@@ -1,16 +1,16 @@
 {
-	"*":{
-		"host": "wackawackawaka.com",
-		"port": 1000,
-		"type":"fake",
-		"method":"GET",
-		"latency" : 2000
-	},
-	"12000":{
-		"host" : null,
-		"port" : null,
-		"type" : "tcp-internet",
-		"latency" : 3000
-	},
-	"addresses" : []
+    "*": {
+        "host": "wackawackawaka.com",
+        "port": 1000,
+        "type": "fake",
+        "method": "GET",
+        "latency": 2000
+    },
+    "12000": {
+        "host": null,
+        "port": null,
+        "type": "tcp-internet",
+        "latency": 3000
+    },
+    "addresses": []
 }
