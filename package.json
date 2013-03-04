@@ -1,47 +1,47 @@
 {
-  "author": "shimonchayim",
-  "name": "netmorphic",
-  "version": "0.4.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.scm.corp.ebay.com/cpenkar/net-morphic"
-  },
-  "engines": {
-    "node": ">=0.8.6"
-  },
-  "main": "net-morphic.js",
-  "dependencies": {
-    "underscore": "1.4.0",
-    "http-proxy": "0.8.3",
-    "optimist": "0.3.4",
-    "mime": "1.2.7",
-    "filed": "0.0.7",
-    "connect": "2.5.0",
-    "cluster2": "0.3.6",
-    "nodeunit":"0.7.4",
-	"since-when":"0.4.7",
-	"router":"0.6.2",
-	"pause-stream":"", 
-	"express":"2.5.11",
-	"traverse": "",
-	"node-uuid": "",
-	"scuttlebutt":"",
-	"ecstatic":"",
-	"through":"",
-	"event-stream":"",
-	"from":"",
-	"ssl-keygen":""
-  },
-  "devDependencies": {
-    "nodeunit": "",
-	"clone":""
-  },
-  "description": "ERROR: No README.md file found!",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "license": "MIT"
+    "author": "shimonchayim",
+    "name": "netmorphic",
+    "version": "0.4.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.scm.corp.ebay.com/cpenkar/net-morphic"
+    },
+    "engines": {
+        "node": ">=0.8.6"
+    },
+    "main": "net-morphic.js",
+    "dependencies": {
+        "underscore": "1.4.0",
+        "http-proxy": "0.8.3",
+        "optimist": "0.3.4",
+        "mime": "1.2.7",
+        "filed": "0.0.7",
+        "connect": "2.5.0",
+        "cluster2": "0.3.6",
+        "nodeunit": "0.7.4",
+        "since-when": "0.4.7",
+        "router": "0.6.2",
+        "pause-stream": "0.0.9",
+        "express": "2.5.11",
+        "traverse": "0.6.3",
+        "node-uuid": "1.4.0",
+        "scuttlebutt": "5.5.15",
+        "ecstatic": "0.4.0",
+        "through": "2.2.0",
+        "event-stream": "3.0.11",
+        "from": "0.1.2",
+        "ssl-keygen": "0.1.1"
+    },
+    "devDependencies": {
+        "nodeunit": "",
+        "clone": ""
+    },
+    "description": "Netmorphic is a library for testing networked applications, such as REST clients over HTTP, and database clients over TCP.",
+    "directories": {
+        "test": "test"
+    },
+    "licenses": [{
+        "type": "Apache",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }]
 }
