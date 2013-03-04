@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+'use strict';
 var proxy = require('./lib/_proxy'),
     _ = require('underscore'),
     monitor = require('./monitor'),
