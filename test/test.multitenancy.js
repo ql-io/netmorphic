@@ -76,8 +76,6 @@ module.exports['test test tenant route'] = function(test){
 			data += d
 		});
 		res.on('end', function(){
-            console.log(config);
-            console.log(data);
 			test.equal(config.test['/{key}'].code, parseInt(data));
 			test.done();
 			endpoint.close();
