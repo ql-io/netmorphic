@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+'use strict';
 var http, netmorphic, config, endpoint, timer;
 
 http = require('http');
@@ -60,7 +61,7 @@ config = {
     }
 };
 
-nmp = netmorphic(config, null, false, 3203);
+var nmp = netmorphic(config, null, false, 3203);
 
 nmp[0].app.listen(3203);
 

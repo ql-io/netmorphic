@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+'use strict';
 var http = require('http'),
     netmorphic = require('../').proxy,
     endpoint = require('./server/endpoint.server').listen(3200),
@@ -65,7 +66,7 @@ var http = require('http'),
         }
     };
 
-nmp = netmorphic(config, null, false, 3203);
+var nmp = netmorphic(config, null, false, 3203);
 
 nmp.forEach(function (e) {
     e.app.listen(e.port);

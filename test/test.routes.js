@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+'use strict';
 var http, netmorphic, config, endpoint, timer;
 
 http = require('http');
 netmorphic = require('../').proxy;
 endpoint = require('./server/endpoint.server').listen(3200);
 
-handle = {
+var handle = {
     'testcase': function (req, res) {
         res.writeHead(200);
         res.end(req.serConfig.code.toString())
@@ -80,7 +81,7 @@ config = {
     }
 };
 
-nmp = netmorphic(config, handle, false, 3203);
+var nmp = netmorphic(config, handle, false, 3203);
 
 nmp[0].app.listen(3203);
 

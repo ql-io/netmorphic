@@ -25,6 +25,7 @@
  A request is sent to the SECOND netmorphic proxy instance, getConfig
  if the test passes, the second now has the same config as the first
  */
+'use strict';
 var http = require('http'),
     proxy = require('../').proxy,
     Monitor = require('../').monitor,

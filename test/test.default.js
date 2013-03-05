@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+'use strict';
 var defaultResponse = require('../lib/_default.js'),
     http = require('http');
 

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+'use strict';
 var https = require('https'),
     http = require('http'),
     fs = require('fs'),
@@ -39,7 +40,7 @@ key.createCA('green', false, function () {
     endpoint.on('error', console.error);
 });
 
-handle = {
+var handle = {
     'testcase': function (req, res) {
         var config = req.serConfig;
         var proxy = req.proxy;
@@ -51,7 +52,7 @@ handle = {
     }
 };
 
-config = {
+var config = {
     global: {
         '/': {
             host: '127.0.0.1',
@@ -68,7 +69,7 @@ var certs = {
     cert: 'test/certs/green.crt'
 };
 
-nmp = netmorphic(config, handle, false, 3203, 4430, certs);
+var nmp = netmorphic(config, handle, false, 3203, 4430, certs);
 
 nmp[1].app.listen(4430);
 
