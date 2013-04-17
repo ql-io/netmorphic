@@ -1,18 +1,18 @@
 {
-	"*":{
-		"host": "nodejs.org",
-		"port": 80,
-		"type":"normal",
-		"https": false,
-		"method":"GET",
-		"latency" : 2000
-	},
-	"12000":{
-		"host" : null,
-		"port" : null,
-		"type" : "tcp-internet",
-		"latency" : 3000,
-		"https": true
-	},
-	"addresses" : []
+    "*": {
+        "host": "nodejs.org",
+        "port": 80,
+        "type": "normal",
+        "https": false,
+        "method": "GET",
+        "latency": 2000
+    },
+    "12000": {
+        "host": null,
+        "port": null,
+        "type": "tcp-internet",
+        "latency": 3000,
+        "https": true
+    },
+    "addresses": []
 }

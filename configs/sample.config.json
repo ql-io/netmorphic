@@ -1,6 +1,6 @@
 {
 	"*":{
-		"host": "statehub-staging-phx.stratus.qa.ebay.com",
+		"host": "some-server.ebay.com",
 		"port": 12000,
 		"type":"test",
 		"method":"GET",
