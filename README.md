@@ -1,8 +1,15 @@
 # Netmorphic
 
-Netmorphic is a library for testing networked applications, such as REST clients over HTTP, and database clients over TCP.
+**Netmorphic** is a library for testing networked applications, such as REST clients over HTTP, and database clients over TCP.
 
-The easiest way to get started is to use the netmorphic template application.
+User can include Netmorphic in thier own server or for quick start clone and configure canned [Netmorphic server](https://github.com/ql-io/netmorphic-template).
+
+By configuring Netmorphic based server as "man in the middle" between the client and server components (over HTTP or TCP), simple connections get transformed into "programmable connections". Users cam program these "programmable connection" to induce different network behaviours.
+
+```
+http://<NM server>:<port>/config/index.html
+```
+
 
 ### table of contents
 * [Installation](#installation)
@@ -14,22 +21,13 @@ The easiest way to get started is to use the netmorphic template application.
 ***
 
 ## installation 
-
-### clone the repo
-
-```bash
-git clone https://github.com/ql-io/netmorphic.git
-cd netmorphic 
-make clean install
 ```
-
-### use NPM
-
-```bash
 npm install netmorphic
 ```
 
-```js
+Include in JavaScript file
+
+```
 var netmorphic = require('netmorphic')
 ```
 
@@ -43,7 +41,7 @@ Configure your proxy with a json file. See the examples below.
 
 RESTful routing is made available through the use of the [Router](https://npmjs.org/package/router) module. 
 
-```js
+```
 {
 	"/path/to/endpoint":{ // this is static url for the endpoint
 		"host":"endpoint.host.example.com", // the host of the endpoint server
@@ -69,7 +67,7 @@ RESTful routing is made available through the use of the [Router](https://npmjs.
 
 TCP configuration is similar to the above, with two major exceptions. The first is that multi-tenancy is not currently supported, so there is no 'global' key at the top level. The second is that urls are replaced with the the port number that the proxy server will listen on.
 
-```js
+```
 {
 	"10001": { // the port the proxy will listen on
 		"host" : "127.0.0.1", // and proxy incoming streams to this host
@@ -105,7 +103,7 @@ TCP configuration is similar to the above, with two major exceptions. The first 
 
 ### HTTP
 
-```js
+```
 var netmorphic = require('netmorphic').http
   , config = require('files/myconfig.json')
   , USE_CLUSTER = false
@@ -118,7 +116,7 @@ proxy.server.listen(8000)
 
 ### HTTP with [Cluster2](http://github.com/ql-io/cluster2)
 
-```js
+```
 var netmorphic = require('netmorphic').http
   , monitor = require('netmorphic').monitor
   , Cluster = requir('cluster2')
@@ -140,7 +138,7 @@ cluster.listen(function(cb){
 
 ### TCP
 
-```js
+```
 var TCProxy = require('netmorphic').tcp
   , config = require('files/TCP.config.json')
   , CUSTOM_HANDLERS = false
@@ -157,7 +155,7 @@ servers.forEach(function(server){
 
 ### TCP with [Cluster2](http://github.com/ql-io/cluster2)
 
-```js
+```
 var TCProxy = require('netmorphic').tcp
   , monitor = require('netmorphic').monitor
   , config = require('files/TCP.config.json')
@@ -190,7 +188,7 @@ Handlers are are the "morph" in netmorphic. They act upon your requests and stre
 
 Additionally, custom handlers can be written to do anything. Pass an object of handler functions to the netmorphic constructor, like so:
 
-```js
+```
 var TCProxy = require('netmorphic').tcp
   , config = require('files/TCP.config.json')
   , CUSTOM_HANDLERS = require('files/my.custom.handlers.js')
@@ -201,7 +199,7 @@ var servers = TCProxy(config, CUSTOM_HANDLERS, USE_CLUSTER)
 
 a custom HTTP handler file would look like this:
 
-```js
+```
 
 // hint: it's just a function that handles the request and response streams...
 
@@ -217,7 +215,7 @@ module.exports['just proxy'] = function(req, res){
 
 For TCP, it looks like this:
 
-```js
+```
 
 var ps = require('pause-stream'); // a stream that pauses
 
