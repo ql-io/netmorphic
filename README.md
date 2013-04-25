@@ -96,9 +96,7 @@ TCP configuration is similar to the above, with two major exceptions. The first 
 ***
 
 ## quick start
-
 ### HTTP
-
 #### config.json
 ```
 {
@@ -137,12 +135,11 @@ apps[0].app.listen(8000)
 Verify <http://server:8000/getconfig> and use json editor available at <http://server:8000/config/index.html> to modifiy the configuration.
 
 ### HTTP with [Cluster2](http://github.com/ql-io/cluster2)
-
 #### httpTestCluster.js
 
 ```
 var netmorphic = require('netmorphic').proxy
-  , monitor = require('netmorphic').monitor(3100) // 3100 to run the monitor app
+  , monitor = require('netmorphic').monitor(3100) //3100 required for config sync-ing
   , Cluster = require('cluster2')
   , HTTPPORT = 8000
   , CONFIG = require('./config.json')
@@ -162,40 +159,81 @@ cluster.listen(function(cb){
 Verify <http://server:8000/getconfig> and use json editor available at <http://server:8000/config/index.html> to modifiy the configuration.
 
 ### TCP
+#### config.json
+```
+{
+    "/path/to/endpoint":{
+        "host":"endpoint.host.example.com",
+        "port":80,
+        "type":"slow",
+        "method":"get",
+        "latency": 100
+    },
+    "10001": {
+        "host" : "127.0.0.1",
+        "port" : 3124,
+        "type" : "normal"
+    },
+    "10002": {
+        "host" : "127.0.0.1",
+        "port" : 3124,
+        "type" : "slow",
+        "latency" : 5000
+    },
+    "10003": {
+        "host" : "127.0.0.1",
+        "port" : 3124,
+        "type" : "drop",
+        "lo" : 1000,
+        "high" : 5000
+    },
+    "10004": {
+        "host" : "127.0.0.1",
+        "port" : 3124,
+        "type" : "bumpy",
+        "lo" : 3500,
+        "high" : 7000
+    }
+}
+
 
 ```
-var TCProxy = require('netmorphic').tcp
-  , config = require('files/TCP.config.json')
-  , CUSTOM_HANDLERS = false
-  , USE_CLUSTER = false;
 
-// returns an array of servers
-var servers = TCProxy(config, CUSTOM_HANDLERS, USE_CLUSTER)
+#### tcpTest.js
+```
+var netmorphic = require('netmorphic').proxy
+  , CONFIG = require('./config.json')
+  , HTTPPORT = 8000
+  , USE_CLUSTER = false
+  , CUSTOM_HANDLERS = false;
+
+var apps = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER, HTTPPORT);
 
 //iterate over the TCP servers and start each one
-servers.forEach(function(server){
-	server.app.listen(server.port)
+apps.forEach(function(app){
+    app.app.listen(app.port)
 })
 ```
 
 ### TCP with [Cluster2](http://github.com/ql-io/cluster2)
-
+#### tcpTestcluster.js
 ```
-var TCProxy = require('netmorphic').tcp
-  , monitor = require('netmorphic').monitor
-  , config = require('files/TCP.config.json')
+var netmorphic = require('netmorphic').proxy
+  , monitor = require('netmorphic').monitor(3100) // 3100 to run the monitor app
   , Cluster = require('cluster2')
-  , CUSTOM_HANDLERS = false
-  , USE_CLUSTER = true;
+  , HTTPPORT = 8000
+  , CONFIG = require('./config.json')
+  , USE_CLUSTER = true
+  , CUSTOM_HANDLERS = false;
 
-var servers = TCProxy(config, CUSTOM_HANDLERS, USE_CLUSTER)
+var apps = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER, HTTPPORT);
 
 var cluster = new Cluster({
-	monitor: monitor()
+        monitor: monitor
 })
 
 cluster.listen(function(cb){
-	cb(servers)
+        cb(apps)
 })
 ```
 
