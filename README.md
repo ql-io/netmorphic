@@ -4,11 +4,7 @@
 
 User can include Netmorphic in thier own server or for quick start clone and configure canned [Netmorphic server](https://github.com/ql-io/netmorphic-template).
 
-By configuring Netmorphic based server as "man in the middle" between the client and server components (over HTTP or TCP), simple connections get transformed into "programmable connections". Users cam program these "programmable connection" to induce different network behaviours.
-
-```
-http://<NM server>:<port>/config/index.html
-```
+By configuring Netmorphic based server as "man in the middle" (or as Proxy for HTTP requests) between the client and server components (over HTTP or TCP), simple connections get transformed into "programmable connections". Users cam program these "programmable connection" to induce different network behaviours.
 
 
 ### table of contents
@@ -28,14 +24,14 @@ npm install netmorphic
 Include in JavaScript file
 
 ```
-var netmorphic = require('netmorphic')
+var nm = require('netmorphic')
 ```
 
 ***
 
 ## Configurations
 
-Configure your proxy with a json file. See the examples below.
+Configure your proxy with a json object. See the examples below.
 
 ### HTTP Configuration
 
@@ -103,38 +99,67 @@ TCP configuration is similar to the above, with two major exceptions. The first 
 
 ### HTTP
 
+#### config.json
 ```
-var netmorphic = require('netmorphic').http
-  , config = require('files/myconfig.json')
+{
+    "/path/to/endpoint":{
+        "host":"endpoint.host.example.com",
+        "port":80,
+        "type":"slow",
+        "method":"get",
+        "latency": 100
+    },
+    "/product/{id}":{
+        "host":"endpoint.host.example.com",
+        "port":80,
+        "type":"flakey",
+        "method":"get",
+        "hi" : 2000,
+        "lo" : 500
+    },
+    "addresses" : []
+}
+```
+
+#### httpTest.js
+
+```
+var netmorphic = require('netmorphic').proxy
+  , CONFIG = require('./config.json')
   , USE_CLUSTER = false
   , CUSTOM_HANDLERS = false;
 
-var proxy = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER); 
+var apps = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER); 
 
-proxy.server.listen(8000)
+apps[0].app.listen(8000)
 ```
+
+Verify <http://server:8000/getconfig> and use json editor available at <http://server:8000/config/index.html> to modifiy the configuration.
 
 ### HTTP with [Cluster2](http://github.com/ql-io/cluster2)
 
+#### httpTestCluster.js
+
 ```
-var netmorphic = require('netmorphic').http
-  , monitor = require('netmorphic').monitor
-  , Cluster = requir('cluster2')
-  , config = require('files/myconfig.json')
+var netmorphic = require('netmorphic').proxy
+  , monitor = require('netmorphic').monitor(3100) // 3100 to run the monitor app
+  , Cluster = require('cluster2')
+  , HTTPPORT = 8000
+  , CONFIG = require('./config.json')
   , USE_CLUSTER = true
   , CUSTOM_HANDLERS = false;
 
-var proxy = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER); 
+var apps = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER, HTTPPORT);
 
 var cluster = new Cluster({
-	port: 8000,
-	monitor: monitor()
+        monitor: monitor
 })
 
 cluster.listen(function(cb){
-	cb(proxy.server)
-})
+        cb(apps)
+});
 ```
+Verify <http://server:8000/getconfig> and use json editor available at <http://server:8000/config/index.html> to modifiy the configuration.
 
 ### TCP
 
