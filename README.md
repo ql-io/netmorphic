@@ -13,6 +13,8 @@ By configuring Netmorphic based server as "man in the middle" (or as Proxy for H
 * [TCP Configuration](#tcp-configuration)
 * [Quick Start](#quick-start)
 * [Handlers](#handlers)
+* [Multitenancy](#multitenancy)
+* [HTTP Config Api]
 
 ***
 
@@ -252,20 +254,20 @@ Handlers are are the "morph" in netmorphic. They act upon your requests and stre
 Additionally, custom handlers can be written to do anything. Pass an object of handler functions to the netmorphic constructor, like so:
 
 ```
-var TCProxy = require('netmorphic').tcp
-  , config = require('files/TCP.config.json')
-  , CUSTOM_HANDLERS = require('files/my.custom.handlers.js')
-  , USE_CLUSTER = true;
+var netmorphic = require('netmorphic').proxy
+  , CONFIG = require('./config.json')
+  , HTTPPORT = 8000
+  , CUSTOM_HANDLERS = require('files/my.custom.handlers.js')  , USE_CLUSTER = false
+  , CUSTOM_HANDLERS = false;
+var apps = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER, HTTPPORT);
 
-var servers = TCProxy(config, CUSTOM_HANDLERS, USE_CLUSTER)
 ```
 
 a custom HTTP handler file would look like this:
-
+#### my.custom.handlers.js
 ```
-
+// HTTP Custom Handler
 // hint: it's just a function that handles the request and response streams...
-
 module.exports['just proxy'] = function(req, res){
 	var config = req.serConfig; // the service config for this particular client
 	var proxy = req.proxy; // a proxy to use, if you need a proxy
@@ -274,14 +276,9 @@ module.exports['just proxy'] = function(req, res){
         port:config.port
     });
 }
-```
 
-For TCP, it looks like this:
-
-```
-
+// TCP Custom Handler
 var ps = require('pause-stream'); // a stream that pauses
-
 module.exports['vanilla tcp proxy'] = function(socket, service){
 	
 	// socket is the client stream
@@ -299,6 +296,29 @@ module.exports['vanilla tcp proxy'] = function(socket, service){
 	service.pipe(socket); // pipe the endpoint connection back to the client connection
 }
 ```
+#Multitenancy
+For HTTP requests user can setup client specific config by defining Tenants. Clients are identified by looking at 'X-Forwarded-For' header.
 
-
-
+```
+{
+    global: { // 'global' is always client agnostic
+        '/path': {
+            host: '127.0.0.1',
+            port: 3200,
+            method: 'ALL',
+            type: 'testcase',
+            code: 1
+        }
+    },
+    test: { // 'test' is a user defined tenant
+        '/{key}': {
+            host: '127.0.0.1',
+            port: 3200,
+            method: 'ALL',
+            type: 'testcase',
+            code: 2
+        },
+        addresses: ['12.34.56.78'] // IP address for clients belonging to 'test' tenant
+    }
+};
+```
