@@ -14,7 +14,7 @@ By configuring Netmorphic based server as "man in the middle" (or as Proxy for H
 * [Quick Start](#quick-start)
 * [Handlers](#handlers)
 * [Multitenancy](#multitenancy)
-* [HTTP Config Api]
+* [HTTP Config Api](#http-config-api)
 
 ***
 
@@ -322,3 +322,11 @@ For HTTP requests user can setup client specific config by defining Tenants. Cli
     }
 };
 ```
+#HTTP Config Api
+Once netmorphic is started ([Ref Quick Start](#quick-start)) config can be got or set using the following HTTP Apis.
+
+##Get Config
+```
+http://<server>:<port>/getconfig
+```
+
