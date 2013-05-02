@@ -4,11 +4,7 @@
 
 User can include Netmorphic in thier own server or for quick start clone and configure canned [Netmorphic server](https://github.com/ql-io/netmorphic-template).
 
-By configuring Netmorphic based server as "man in the middle" between the client and server components (over HTTP or TCP), simple connections get transformed into "programmable connections". Users cam program these "programmable connection" to induce different network behaviours.
-
-```
-http://<NM server>:<port>/config/index.html
-```
+By configuring Netmorphic based server as "man in the middle" (or as Proxy for HTTP requests) between the client and server components (over HTTP or TCP), simple connections get transformed into "programmable connections". Users cam program these "programmable connection" to induce different network behaviours.
 
 
 ### table of contents
@@ -17,6 +13,9 @@ http://<NM server>:<port>/config/index.html
 * [TCP Configuration](#tcp-configuration)
 * [Quick Start](#quick-start)
 * [Handlers](#handlers)
+* [Multitenancy](#multitenancy)
+* [HTTP Config Api](#http-config-api)
+* [Config Editor UI](#config-editor)
 
 ***
 
@@ -28,14 +27,14 @@ npm install netmorphic
 Include in JavaScript file
 
 ```
-var netmorphic = require('netmorphic')
+var nm = require('netmorphic')
 ```
 
 ***
 
 ## Configurations
 
-Configure your proxy with a json file. See the examples below.
+Configure your proxy with a json object. See the examples below.
 
 ### HTTP Configuration
 
@@ -100,77 +99,144 @@ TCP configuration is similar to the above, with two major exceptions. The first 
 ***
 
 ## quick start
-
 ### HTTP
+#### config.json
+```
+{
+    "/path/to/endpoint":{
+        "host":"endpoint.host.example.com",
+        "port":80,
+        "type":"slow",
+        "method":"get",
+        "latency": 100
+    },
+    "/product/{id}":{
+        "host":"endpoint.host.example.com",
+        "port":80,
+        "type":"flakey",
+        "method":"get",
+        "hi" : 2000,
+        "lo" : 500
+    },
+    "addresses" : []
+}
+```
+
+#### httpTest.js
 
 ```
-var netmorphic = require('netmorphic').http
-  , config = require('files/myconfig.json')
+var netmorphic = require('netmorphic').proxy
+  , CONFIG = require('./config.json')
   , USE_CLUSTER = false
   , CUSTOM_HANDLERS = false;
 
-var proxy = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER); 
+var apps = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER); 
 
-proxy.server.listen(8000)
+apps[0].app.listen(8000)
 ```
+
+Verify <http://server:8000/getconfig> and use json editor available at <http://server:8000/config/index.html> to modifiy the configuration.
 
 ### HTTP with [Cluster2](http://github.com/ql-io/cluster2)
+#### httpTestCluster.js
 
 ```
-var netmorphic = require('netmorphic').http
-  , monitor = require('netmorphic').monitor
-  , Cluster = requir('cluster2')
-  , config = require('files/myconfig.json')
+var netmorphic = require('netmorphic').proxy
+  , monitor = require('netmorphic').monitor(3100) //3100 required for config sync-ing
+  , Cluster = require('cluster2')
+  , HTTPPORT = 8000
+  , CONFIG = require('./config.json')
   , USE_CLUSTER = true
   , CUSTOM_HANDLERS = false;
 
-var proxy = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER); 
+var apps = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER, HTTPPORT);
 
 var cluster = new Cluster({
-	port: 8000,
-	monitor: monitor()
+        monitor: monitor
 })
 
 cluster.listen(function(cb){
-	cb(proxy.server)
-})
+        cb(apps)
+});
 ```
+Verify <http://server:8000/getconfig> and use json editor available at <http://server:8000/config/index.html> to modifiy the configuration.
 
 ### TCP
+#### config.json
+```
+{
+    "/path/to/endpoint":{
+        "host":"endpoint.host.example.com",
+        "port":80,
+        "type":"slow",
+        "method":"get",
+        "latency": 100
+    },
+    "10001": {
+        "host" : "127.0.0.1",
+        "port" : 3124,
+        "type" : "normal"
+    },
+    "10002": {
+        "host" : "127.0.0.1",
+        "port" : 3124,
+        "type" : "slow",
+        "latency" : 5000
+    },
+    "10003": {
+        "host" : "127.0.0.1",
+        "port" : 3124,
+        "type" : "drop",
+        "lo" : 1000,
+        "high" : 5000
+    },
+    "10004": {
+        "host" : "127.0.0.1",
+        "port" : 3124,
+        "type" : "bumpy",
+        "lo" : 3500,
+        "high" : 7000
+    }
+}
+
 
 ```
-var TCProxy = require('netmorphic').tcp
-  , config = require('files/TCP.config.json')
-  , CUSTOM_HANDLERS = false
-  , USE_CLUSTER = false;
 
-// returns an array of servers
-var servers = TCProxy(config, CUSTOM_HANDLERS, USE_CLUSTER)
+#### tcpTest.js
+```
+var netmorphic = require('netmorphic').proxy
+  , CONFIG = require('./config.json')
+  , HTTPPORT = 8000
+  , USE_CLUSTER = false
+  , CUSTOM_HANDLERS = false;
+
+var apps = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER, HTTPPORT);
 
 //iterate over the TCP servers and start each one
-servers.forEach(function(server){
-	server.app.listen(server.port)
+apps.forEach(function(app){
+    app.app.listen(app.port)
 })
 ```
 
 ### TCP with [Cluster2](http://github.com/ql-io/cluster2)
-
+#### tcpTestcluster.js
 ```
-var TCProxy = require('netmorphic').tcp
-  , monitor = require('netmorphic').monitor
-  , config = require('files/TCP.config.json')
+var netmorphic = require('netmorphic').proxy
+  , monitor = require('netmorphic').monitor(3100) // 3100 to run the monitor app
   , Cluster = require('cluster2')
-  , CUSTOM_HANDLERS = false
-  , USE_CLUSTER = true;
+  , HTTPPORT = 8000
+  , CONFIG = require('./config.json')
+  , USE_CLUSTER = true
+  , CUSTOM_HANDLERS = false;
 
-var servers = TCProxy(config, CUSTOM_HANDLERS, USE_CLUSTER)
+var apps = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER, HTTPPORT);
 
 var cluster = new Cluster({
-	monitor: monitor()
+        monitor: monitor
 })
 
 cluster.listen(function(cb){
-	cb(servers)
+        cb(apps)
 })
 ```
 
@@ -189,20 +255,20 @@ Handlers are are the "morph" in netmorphic. They act upon your requests and stre
 Additionally, custom handlers can be written to do anything. Pass an object of handler functions to the netmorphic constructor, like so:
 
 ```
-var TCProxy = require('netmorphic').tcp
-  , config = require('files/TCP.config.json')
-  , CUSTOM_HANDLERS = require('files/my.custom.handlers.js')
-  , USE_CLUSTER = true;
+var netmorphic = require('netmorphic').proxy
+  , CONFIG = require('./config.json')
+  , HTTPPORT = 8000
+  , CUSTOM_HANDLERS = require('files/my.custom.handlers.js')  , USE_CLUSTER = false
+  , CUSTOM_HANDLERS = false;
+var apps = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER, HTTPPORT);
 
-var servers = TCProxy(config, CUSTOM_HANDLERS, USE_CLUSTER)
 ```
 
 a custom HTTP handler file would look like this:
-
+#### my.custom.handlers.js
 ```
-
+// HTTP Custom Handler
 // hint: it's just a function that handles the request and response streams...
-
 module.exports['just proxy'] = function(req, res){
 	var config = req.serConfig; // the service config for this particular client
 	var proxy = req.proxy; // a proxy to use, if you need a proxy
@@ -211,14 +277,9 @@ module.exports['just proxy'] = function(req, res){
         port:config.port
     });
 }
-```
 
-For TCP, it looks like this:
-
-```
-
+// TCP Custom Handler
 var ps = require('pause-stream'); // a stream that pauses
-
 module.exports['vanilla tcp proxy'] = function(socket, service){
 	
 	// socket is the client stream
@@ -236,6 +297,56 @@ module.exports['vanilla tcp proxy'] = function(socket, service){
 	service.pipe(socket); // pipe the endpoint connection back to the client connection
 }
 ```
+#Multitenancy
+For HTTP requests user can setup client specific config by defining Tenants. Clients are identified by looking at 'X-Forwarded-For' header.
 
+```
+{
+    global: { // 'global' is always client agnostic
+        '/path': {
+            host: '127.0.0.1',
+            port: 3200,
+            method: 'ALL',
+            type: 'testcase',
+            code: 1
+        }
+    },
+    test: { // 'test' is a user defined tenant
+        '/{key}': {
+            host: '127.0.0.1',
+            port: 3200,
+            method: 'ALL',
+            type: 'testcase',
+            code: 2
+        },
+        addresses: ['12.34.56.78'] // IP address for clients belonging to 'test' tenant
+    }
+};
+```
+#HTTP Config Api
+Once netmorphic is started ([Ref Quick Start](#quick-start)) config can be got or set using the following HTTP Apis.
 
+##Get Config
+User can get the whole configuration or for a given endpoint by specifying the tenant and url for HTTP or port for TCP.
+
+```
+http://<server>:<port>/getconfig
+http://<server>:<port>/getconfig?srcUrl=<url or port>&tenant=<tenant>
+```
+Example:
+<http://server:3000/getconfig?srcUrl=/path&tenant=global>
+
+##Set Config
+User can set configuration for only a given endpoint.
+
+```
+http://<server>:<port>/setconfig?srcUrl=<url or port>&tenant=<tenant>[&<p1>:<v1>&<p2>:<v2>&...]
+```
+example: 
+<http://server:3000/setconfig?srcUrl=/path&tenant=global&type=slow&latency=2000>
+
+#Config Editor UI
+Once netmorphic is started ([Ref Quick Start](#quick-start)) config can be edited through a simple JSON editor (credits: <http://jsoneditoronline.org/>) at the following link. 
+
+<http://server:3000/config/index.html>
 
