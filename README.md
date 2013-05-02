@@ -15,6 +15,7 @@ By configuring Netmorphic based server as "man in the middle" (or as Proxy for H
 * [Handlers](#handlers)
 * [Multitenancy](#multitenancy)
 * [HTTP Config Api](#http-config-api)
+* [Config Editor UI](#config-editor)
 
 ***
 
@@ -326,7 +327,26 @@ For HTTP requests user can setup client specific config by defining Tenants. Cli
 Once netmorphic is started ([Ref Quick Start](#quick-start)) config can be got or set using the following HTTP Apis.
 
 ##Get Config
+User can get the whole configuration or for a given endpoint by specifying the tenant and url for HTTP or port for TCP.
+
 ```
 http://<server>:<port>/getconfig
+http://<server>:<port>/getconfig?srcUrl=<url or port>&tenant=<tenant>
 ```
+Example:
+<http://server:3000/getconfig?srcUrl=/path&tenant=global>
+
+##Set Config
+User can set configuration for only a given endpoint.
+
+```
+http://<server>:<port>/setconfig?srcUrl=<url or port>&tenant=<tenant>[&<p1>:<v1>&<p2>:<v2>&...]
+```
+example: 
+<http://server:3000/setconfig?srcUrl=/path&tenant=global&type=slow&latency=2000>
+
+#Config Editor UI
+Once netmorphic is started ([Ref Quick Start](#quick-start)) config can be edited through a simple JSON editor (credits: <http://jsoneditoronline.org/>) at the following link. 
+
+<http://server:3000/config/index.html>
 
