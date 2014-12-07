@@ -4,7 +4,7 @@
 
 User can include Netmorphic in thier own server or for quick start clone and configure canned [Netmorphic server](https://github.com/ql-io/netmorphic-template).
 
-By configuring Netmorphic based server as "man in the middle" (or as Proxy for HTTP requests) between the client and server components (over HTTP or TCP), simple connections get transformed into "programmable connections". Users cam program these "programmable connection" to induce different network behaviours.
+By configuring Netmorphic based server as "man in the middle" (or as Proxy for HTTP requests) between the client and server components (over HTTP or TCP), simple connections get transformed into "programmable connections". Users can program these "programmable connection" to induce different network behaviours.
 
 
 ### table of contents
@@ -135,7 +135,7 @@ var apps = netmorphic(CONFIG, CUSTOM_HANDLERS, USE_CLUSTER);
 apps[0].app.listen(8000)
 ```
 
-Verify <http://server:8000/getconfig> and use json editor available at <http://server:8000/config/index.html> to modifiy the configuration.
+Verify <http://server:8000/getconfig> and use json editor available at <http://server:8000/config/index.html> to modify the configuration.
 
 ### HTTP with [Cluster2](http://github.com/ql-io/cluster2)
 #### httpTestCluster.js
@@ -159,7 +159,7 @@ cluster.listen(function(cb){
         cb(apps)
 });
 ```
-Verify <http://server:8000/getconfig> and use json editor available at <http://server:8000/config/index.html> to modifiy the configuration.
+Verify <http://server:8000/getconfig> and use the json editor available at <http://server:8000/config/index.html> to modify the configuration.
 
 ### TCP
 #### config.json
@@ -244,7 +244,7 @@ cluster.listen(function(cb){
 
 ## handlers
 
-Handlers are are the "morph" in netmorphic. They act upon your requests and streams. Parameters for your handlers are set in the config files. Netmorphic ships with a few handlers out of the box, namely:
+Handlers are the "morph" in netmorphic. They act upon your requests and streams. Parameters for your handlers are set in the config files. Netmorphic ships with a few handlers out of the box, namely:
 
 * normal - plain proxy
 * slow - buffers the outgoing request by a minimum latency
